@@ -51,16 +51,21 @@ function findById(id) {
   return loadUsers().find((u) => u.id === id);
 }
 
+function getAvatarUrl(avatar) {
+  return avatar ? `/api/avatars/${avatar}` : null;
+}
+
 function listPublic() {
-  return loadUsers().map(({ id, username, role, createdAt }) => ({
+  return loadUsers().map(({ id, username, role, createdAt, avatar }) => ({
     id,
     username,
     role,
+    avatar: getAvatarUrl(avatar),
     createdAt,
   }));
 }
 
-function addUser({ username, passwordHash, role }) {
+function addUser({ username, passwordHash, role, avatar = null }) {
   const users = loadUsers();
   if (users.find((u) => u.username === username)) {
     throw new Error("Username already exists.");
@@ -70,9 +75,19 @@ function addUser({ username, passwordHash, role }) {
     username,
     passwordHash,
     role,
+    avatar,
     createdAt: new Date().toISOString(),
   };
   users.push(user);
+  saveUsers(users);
+  return user;
+}
+
+function updateUser(id, changes) {
+  const users = loadUsers();
+  const user = users.find((u) => u.id === id);
+  if (!user) return null;
+  Object.assign(user, changes);
   saveUsers(users);
   return user;
 }

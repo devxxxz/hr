@@ -22,7 +22,9 @@ const io = new Server(server);
 
 const PORT = process.env.PORT || 3000;
 const UPLOAD_DIR = path.join(__dirname, "uploads");
+const AVATAR_DIR = path.join(UPLOAD_DIR, "avatars");
 if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+if (!fs.existsSync(AVATAR_DIR)) fs.mkdirSync(AVATAR_DIR, { recursive: true });
 
 app.set("trust proxy", 1); // needed for secure cookies behind a reverse proxy (e.g. nginx)
 app.use(express.json());
@@ -97,13 +99,41 @@ app.post("/api/login", async (req, res) => {
   attempts.delete(ip);
   req.session.regenerate((err) => {
     if (err) return res.status(500).json({ ok: false, message: "Session error." });
-    req.session.user = { id: user.id, username: user.username, role: user.role };
+    req.session.user = { id: user.id, username: user.username, role: user.role, avatar: user.avatar || null };
     res.json({ ok: true, redirect: "/dashboard" });
   });
 });
 
 app.get("/api/me", requireAuth, (req, res) => {
-  res.json({ ok: true, user: req.session.user });
+  const user = {
+    ...req.session.user,
+    avatar: req.session.user.avatar ? `/api/avatars/${req.session.user.avatar}` : null,
+  };
+  res.json({ ok: true, user });
+});
+
+app.post("/api/me/avatar", requireAuth, (req, res) => {
+  avatarUpload.single("avatar")(req, res, (err) => {
+    if (err) return res.status(400).json({ ok: false, message: err.message });
+    if (!req.file) return res.status(400).json({ ok: false, message: "No avatar uploaded." });
+
+    const existing = req.session.user.avatar;
+    if (existing) {
+      const oldPath = path.join(AVATAR_DIR, existing);
+      fs.unlink(oldPath, () => {});
+    }
+
+    users.updateUser(req.session.user.id, { avatar: req.file.filename });
+    req.session.user.avatar = req.file.filename;
+    res.json({ ok: true, avatar: `/api/avatars/${req.file.filename}` });
+  });
+});
+
+app.get("/api/avatars/:filename", requireAuth, (req, res) => {
+  const filename = path.basename(req.params.filename);
+  const filePath = path.join(AVATAR_DIR, filename);
+  if (!fs.existsSync(filePath)) return res.status(404).send("Not found");
+  res.sendFile(filePath);
 });
 
 app.post("/api/logout", (req, res) => {
@@ -120,7 +150,7 @@ app.get("/api/users", requireRole("owner", "admin"), (req, res) => {
 
 app.post("/api/users", requireRole("owner"), async (req, res) => {
   try {
-    const { username, password, role } = req.body || {};
+    const { username, password, role, avatar } = req.body || {};
     if (!username || !password || !role) {
       return res.status(400).json({ ok: false, message: "username, password, role required." });
     }
@@ -131,8 +161,8 @@ app.post("/api/users", requireRole("owner"), async (req, res) => {
       return res.status(400).json({ ok: false, message: "Password must be at least 6 characters." });
     }
     const passwordHash = await bcrypt.hash(password, 10);
-    const user = users.addUser({ username, passwordHash, role });
-    res.json({ ok: true, user: { id: user.id, username: user.username, role: user.role } });
+    const user = users.addUser({ username, passwordHash, role, avatar: avatar || null });
+    res.json({ ok: true, user: { id: user.id, username: user.username, role: user.role, avatar: user.avatar || null } });
   } catch (err) {
     res.status(400).json({ ok: false, message: err.message });
   }
@@ -267,7 +297,12 @@ io.on("connection", (socket) => {
     const existingPeers = [];
     for (const [id, s] of io.of("/").sockets) {
       if (id !== socket.id && s.inCall) {
-        existingPeers.push({ socketId: id, username: s.user.username, role: s.user.role });
+        existingPeers.push({
+          socketId: id,
+          username: s.user.username,
+          role: s.user.role,
+          avatar: s.user.avatar || null,
+        });
       }
     }
     socket.inCall = true;
@@ -276,6 +311,7 @@ io.on("connection", (socket) => {
       socketId: socket.id,
       username: socket.user.username,
       role: socket.user.role,
+      avatar: socket.user.avatar || null,
     });
   });
 

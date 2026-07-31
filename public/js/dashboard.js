@@ -1,4 +1,20 @@
 let CURRENT_USER = null;
+const avatarInput = document.getElementById("avatarInput");
+const avatarImage = document.getElementById("avatarImage");
+const avatarInitial = document.getElementById("avatarInitial");
+const uploadAvatarBtn = document.getElementById("uploadAvatarBtn");
+
+function updateAvatarDisplay(url) {
+  if (url) {
+    avatarImage.src = url;
+    avatarImage.classList.remove("hidden");
+    avatarInitial.style.display = "none";
+  } else {
+    avatarImage.src = "";
+    avatarImage.classList.add("hidden");
+    avatarInitial.style.display = "flex";
+  }
+}
 
 // ---------- toast ----------
 function toast(msg, type = "success") {
@@ -46,6 +62,7 @@ async function loadMe() {
     document.getElementById("roleBadge").textContent = CURRENT_USER.role.toUpperCase();
     document.getElementById("accessLevel").textContent = CURRENT_USER.role === "owner" ? "ROOT" : CURRENT_USER.role.toUpperCase();
     document.getElementById("avatarInitial").textContent = CURRENT_USER.username.charAt(0).toUpperCase();
+    updateAvatarDisplay(CURRENT_USER.avatar);
 
     if (CURRENT_USER.role === "owner" || CURRENT_USER.role === "admin") {
       document.getElementById("membersNav").style.display = "flex";
@@ -64,6 +81,32 @@ async function loadMe() {
   }
 }
 loadMe();
+
+if (avatarInput && uploadAvatarBtn) {
+  avatarInput.addEventListener("change", async () => {
+    const file = avatarInput.files?.[0];
+    if (!file) return;
+    const fd = new FormData();
+    fd.append("avatar", file);
+    try {
+      const res = await fetch("/api/me/avatar", { method: "POST", body: fd });
+      const data = await res.json();
+      if (data.ok) {
+        CURRENT_USER.avatar = data.avatar;
+        updateAvatarDisplay(data.avatar);
+        toast("Avatar updated.");
+      } else {
+        toast(data.message || "Upload failed", "error");
+      }
+    } catch {
+      toast("Avatar upload failed", "error");
+    } finally {
+      avatarInput.value = "";
+    }
+  });
+
+  uploadAvatarBtn.addEventListener("click", () => avatarInput.click());
+}
 
 document.getElementById("logoutBtn").addEventListener("click", async () => {
   const res = await fetch("/api/logout", { method: "POST" });
@@ -227,8 +270,11 @@ async function loadMembers() {
     data.users.forEach((u) => {
       const tr = document.createElement("tr");
       const canRemove = CURRENT_USER.role === "owner" && u.role !== "owner";
+      const avatarHtml = u.avatar
+        ? `<img class="member-avatar" src="${u.avatar}" alt="${u.username}" />`
+        : `<span class="member-avatar fallback">${u.username.charAt(0).toUpperCase()}</span>`;
       tr.innerHTML = `
-        <td>${u.username}</td>
+        <td><div class="member-user">${avatarHtml}<span>${u.username}</span></div></td>
         <td><span class="role-pill ${u.role}">${u.role}</span></td>
         <td>${new Date(u.createdAt).toLocaleDateString()}</td>
         <td>${canRemove ? `<button class="btn btn-danger" data-remove="${u.id}" style="padding:6px 12px;font-size:11px;">Remove</button>` : ""}</td>
