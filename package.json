@@ -1,0 +1,17 @@
+{
+  "name": "hackers-residence",
+  "version": "2.0.0",
+  "description": "Hackers Residence (HR) - role-based dashboard with file sharing and live chat",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "multer": "^2.2.0",
+    "socket.io": "^4.8.3"
+  }
+}
