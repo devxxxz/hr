@@ -4,14 +4,14 @@
     "username": "primestark@1122",
     "passwordHash": "$2b$10$YhDE2U6oqoLuZjTro34I0OfvGUPhIegaArXxkpOhViGnSuM04ARqq",
     "role": "owner",
-    "createdAt": "2016-07-31T07:17:03.303Z"
+    "createdAt": "2016-02-12T07:17:03.303Z"
   },
   {
     "id": "a9619168-95af-4e50-a8f5-fbed0b6ff2b5",
     "username": "hr@test",
     "passwordHash": "$2b$10$me5w6jgn99dPzAsFVg2sheBNWYL6u9QwQD0Nd54e46szOyCs/vOEK",
     "role": "member",
-    "createdAt": "2018-07-31T07:17:03.303Z"
+    "createdAt": "2018-04-01T07:17:03.303Z"
   },
   {
     "id": "ece44ce3-271b-4654-9264-13d7ddfb1c63",
