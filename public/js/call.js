@@ -23,16 +23,14 @@
 
   function setStatus(text) { callStatus.textContent = text; }
 
-  function ensureTile(id, { username, avatar, isLocal } = {}) {
+  function ensureTile(id, { username, isLocal } = {}) {
     let tile = document.getElementById(`tile-${id}`);
     if (tile) return tile;
     tile = document.createElement("div");
     tile.className = "video-tile";
     tile.id = `tile-${id}`;
     const initial = (username || "?").charAt(0).toUpperCase();
-    const avatarHtml = avatar
-      ? `<img class="avatar-image" src="${avatar}" alt="${username || "avatar"}" />`
-      : `<div class="avatar-fallback">${initial}</div>`;
+    const avatarHtml = `<div class="avatar-fallback">${initial}</div>`;
     tile.innerHTML = `
       <video autoplay playsinline ${isLocal ? "muted" : ""}></video>
       ${avatarHtml}
@@ -133,7 +131,7 @@
 
   async function connectToPeer(peerId, meta) {
     const pc = createPeerConnection(peerId, meta);
-    ensureTile(peerId, { username: meta.username, avatar: meta.avatar });
+    ensureTile(peerId, { username: meta.username });
     const offer = await pc.createOffer();
     await pc.setLocalDescription(offer);
     callSocket.emit("call:signal", { to: peerId, type: "offer", payload: offer });
@@ -324,11 +322,11 @@
     });
 
     callSocket.on("call:peers", (existingPeers) => {
-      existingPeers.forEach((p) => connectToPeer(p.socketId, { username: p.username, role: p.role, avatar: p.avatar }));
+      existingPeers.forEach((p) => connectToPeer(p.socketId, { username: p.username, role: p.role }));
     });
 
     callSocket.on("call:peer-joined", (p) => {
-      ensureTile(p.socketId, { username: p.username, avatar: p.avatar });
+      ensureTile(p.socketId, { username: p.username });
       toast(`${p.username} joined the call`);
     });
 
