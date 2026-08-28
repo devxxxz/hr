@@ -12,6 +12,7 @@ const { Server } = require("socket.io");
 const users = require("./src/users");
 const fileStore = require("./src/fileStore");
 const chatStore = require("./src/chatStore");
+<<<<<<< HEAD
 const { requireAuth, requireRole, requirePermission } = require("./src/middleware");
 const roles = require("./src/roles");
 const { makeStore } = require("./src/activityStore");
@@ -19,6 +20,9 @@ const auditStore = makeStore("audit.json");
 const requestStore = makeStore("role-requests.json");
 const notificationStore = makeStore("notifications.json");
 function recordAudit(entry) { return auditStore.add({ id: crypto.randomUUID(), ...entry, ip: entry.ip || "session:" + "unknown", timestamp: entry.timestamp || new Date().toISOString(), result: entry.result || "success" }); }
+=======
+const { requireAuth, requireRole } = require("./src/middleware");
+>>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 
 users.seedOwner();
 
@@ -29,10 +33,15 @@ const io = new Server(server);
 const PORT = process.env.PORT || 3000;
 const UPLOAD_DIR = path.join(__dirname, "uploads");
 if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+<<<<<<< HEAD
 const AVATAR_DIR = path.join(UPLOAD_DIR, "avatars");
 if (!fs.existsSync(AVATAR_DIR)) fs.mkdirSync(AVATAR_DIR, { recursive: true });
 
 app.set("trust proxy", 1);
+=======
+
+app.set("trust proxy", 1); // needed for secure cookies behind a reverse proxy (e.g. nginx)
+>>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -42,12 +51,21 @@ const sessionMiddleware = session({
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
+<<<<<<< HEAD
     maxAge: 1000 * 60 * 60 * 8,
+=======
+    maxAge: 1000 * 60 * 60 * 8, // 8 hours
+>>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production" && process.env.FORCE_HTTPS === "true",
   },
 });
 app.use(sessionMiddleware);
+<<<<<<< HEAD
+=======
+
+// share session with socket.io
+>>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 io.engine.use(sessionMiddleware);
 
 // ---------------- brute-force throttle ----------------
@@ -109,6 +127,7 @@ app.post("/api/login", async (req, res) => {
 });
 
 app.get("/api/me", requireAuth, (req, res) => {
+<<<<<<< HEAD
   const user = users.findById(req.session.user.id);
   if (!user) return res.status(404).json({ ok: false, message: "User not found." });
   req.session.user = { ...req.session.user, ...users.publicProfile(user) };
@@ -150,6 +169,11 @@ app.patch("/api/role-requests/:id", requirePermission("users"), (req, res) => {
   res.json({ ok: true, request });
 });
 
+=======
+  res.json({ ok: true, user: req.session.user });
+});
+
+>>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 app.post("/api/logout", (req, res) => {
   req.session.destroy(() => {
     res.clearCookie("connect.sid");
@@ -157,6 +181,7 @@ app.post("/api/logout", (req, res) => {
   });
 });
 
+<<<<<<< HEAD
 app.post("/api/me/password", requireAuth, async (req, res) => {
   try {
     const { currentPassword, newPassword } = req.body || {};
@@ -252,31 +277,53 @@ app.get("/api/users", requirePermission("users"), (req, res) => {
 });
 
 app.post("/api/users", requirePermission("users"), async (req, res) => {
+=======
+// ---------------- role/member management (owner only) ----------------
+app.get("/api/users", requireRole("owner", "admin"), (req, res) => {
+  res.json({ ok: true, users: users.listPublic() });
+});
+
+app.post("/api/users", requireRole("owner"), async (req, res) => {
+>>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
   try {
     const { username, password, role } = req.body || {};
     if (!username || !password || !role) {
       return res.status(400).json({ ok: false, message: "username, password, role required." });
     }
+<<<<<<< HEAD
     const actorRole = roles.getRole(req.session.user.role);
     const targetRole = roles.getRole(role);
     if (!actorRole || !targetRole || !roles.canManage(req.session.user, targetRole)) {
       return res.status(403).json({ ok: false, message: "You cannot create an identity at that clearance." });
+=======
+    if (!["owner", "admin", "member"].includes(role)) {
+      return res.status(400).json({ ok: false, message: "Invalid role." });
+>>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
     }
     if (password.length < 6) {
       return res.status(400).json({ ok: false, message: "Password must be at least 6 characters." });
     }
     const passwordHash = await bcrypt.hash(password, 10);
+<<<<<<< HEAD
     const user = users.addUser({ username, passwordHash, role: targetRole.name });
+=======
+    const user = users.addUser({ username, passwordHash, role });
+>>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
     res.json({ ok: true, user: { id: user.id, username: user.username, role: user.role } });
   } catch (err) {
     res.status(400).json({ ok: false, message: err.message });
   }
 });
 
+<<<<<<< HEAD
 app.delete("/api/users/:id", requirePermission("users"), (req, res) => {
   try {
     const target = users.findById(req.params.id);
     if (!target || !roles.canManage(req.session.user, roles.getRole(target.role))) return res.status(403).json({ ok: false, message: "You cannot remove a higher-level identity." });
+=======
+app.delete("/api/users/:id", requireRole("owner"), (req, res) => {
+  try {
+>>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
     const removed = users.removeUser(req.params.id);
     if (!removed) return res.status(404).json({ ok: false, message: "User not found." });
     res.json({ ok: true });
@@ -285,6 +332,7 @@ app.delete("/api/users/:id", requirePermission("users"), (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 app.get("/api/roles", requirePermission("roles"), (req, res) => res.json({ ok: true, roles: roles.allRoles(), permissions: roles.PERMISSIONS }));
 app.post("/api/roles", requirePermission("roles"), (req, res) => {
   const actor = roles.getRole(req.session.user.role);
@@ -306,6 +354,8 @@ app.patch("/api/users/:id/role", requirePermission("users"), (req, res) => {
   res.json({ ok: true, audit: recordAudit({ actor: req.session.user.username, target: member.username, action: "assigned", previousRole: member.role, newRole: target.name, reason: req.body.reason || "Role assignment" }) });
 });
 
+=======
+>>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 // ---------------- file upload/download/delete ----------------
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, UPLOAD_DIR),
@@ -327,7 +377,11 @@ const ALLOWED_MIME = [
 
 const upload = multer({
   storage,
+<<<<<<< HEAD
   limits: { fileSize: 200 * 1024 * 1024 },
+=======
+  limits: { fileSize: 200 * 1024 * 1024 }, // 200MB
+>>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
   fileFilter: (req, file, cb) => {
     if (ALLOWED_MIME.includes(file.mimetype)) cb(null, true);
     else cb(new Error("File type not allowed."));
@@ -357,6 +411,10 @@ app.get("/api/files", requireAuth, (req, res) => {
   res.json({ ok: true, files: fileStore.all() });
 });
 
+<<<<<<< HEAD
+=======
+// stream file only to authenticated users (private, not statically exposed)
+>>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 app.get("/api/files/:id/raw", requireAuth, (req, res) => {
   const entry = fileStore.get(req.params.id);
   if (!entry) return res.status(404).send("Not found");
@@ -390,7 +448,11 @@ app.delete("/api/files/:id", requireAuth, (req, res) => {
   res.json({ ok: true });
 });
 
+<<<<<<< HEAD
 // ---------------- Socket.IO: auth, then chat + call signaling ----------------
+=======
+// ---------------- chat (Socket.IO) ----------------
+>>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 io.use((socket, next) => {
   const sess = socket.request.session;
   if (sess && sess.user) {
@@ -412,7 +474,10 @@ io.on("connection", (socket) => {
       id: crypto.randomUUID(),
       username: socket.user.username,
       role: socket.user.role,
+<<<<<<< HEAD
       avatarUrl: socket.user.avatarUrl || "",
+=======
+>>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
       text: trimmed,
       ts: new Date().toISOString(),
     };
@@ -420,10 +485,13 @@ io.on("connection", (socket) => {
     io.emit("chat:message", msg);
   });
 
+<<<<<<< HEAD
   socket.on("chat:typing", () => {
     socket.broadcast.emit("chat:typing", { username: socket.user.username });
   });
 
+=======
+>>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
   // ---------------- voice / video / screen-share call (WebRTC mesh) ----------------
   socket.on("call:join", () => {
     const existingPeers = [];
@@ -433,20 +501,29 @@ io.on("connection", (socket) => {
           socketId: id,
           username: s.user.username,
           role: s.user.role,
+<<<<<<< HEAD
           avatarUrl: s.user.avatarUrl || "",
           state: s.callState || { micOn: true, camOn: false, sharingScreen: false },
+=======
+>>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
         });
       }
     }
     socket.inCall = true;
+<<<<<<< HEAD
     socket.callState = { micOn: true, camOn: false, sharingScreen: false };
+=======
+>>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
     socket.emit("call:peers", existingPeers);
     socket.broadcast.emit("call:peer-joined", {
       socketId: socket.id,
       username: socket.user.username,
       role: socket.user.role,
+<<<<<<< HEAD
       avatarUrl: socket.user.avatarUrl || "",
       state: socket.callState,
+=======
+>>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
     });
   });
 
@@ -457,6 +534,7 @@ io.on("connection", (socket) => {
     target.emit("call:signal", { from: socket.id, type, payload });
   });
 
+<<<<<<< HEAD
   socket.on("call:state", (state) => {
     if (!socket.inCall || typeof state !== "object") return;
     socket.callState = {
@@ -474,6 +552,10 @@ io.on("connection", (socket) => {
   socket.on("call:leave", () => {
     socket.inCall = false;
     socket.callState = null;
+=======
+  socket.on("call:leave", () => {
+    socket.inCall = false;
+>>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
     socket.broadcast.emit("call:peer-left", { socketId: socket.id });
   });
 
@@ -484,10 +566,15 @@ io.on("connection", (socket) => {
   });
 });
 
+<<<<<<< HEAD
 app.use("/api", (req, res) => {
   res.status(404).json({ ok: false, message: "API endpoint not found." });
 });
 
 server.listen(PORT, () => {
   console.log(`ShadowByte running on http://localhost:${PORT}`);
+=======
+server.listen(PORT, () => {
+  console.log(`Hackers Residence running on http://localhost:${PORT}`);
+>>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 });

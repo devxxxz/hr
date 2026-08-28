@@ -1,7 +1,11 @@
 {
   "name": "hackers-residence",
   "version": "2.0.0",
+<<<<<<< HEAD
   "description": "ShadowByte - role-based cybersecurity community with file sharing, live chat, and voice/video calls",
+=======
+  "description": "Hackers Residence (HR) - role-based dashboard with file sharing and live chat",
+>>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
