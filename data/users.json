@@ -1,6 +1,5 @@
 [
   {
-<<<<<<< HEAD
     "id": "cad6aa53-aef1-40a2-9a5c-8296c27a4885",
     "username": "primestark@1122",
     "passwordHash": "$2b$10$oGJkdUZSPP3reHv4vzU5MeQtdMgQ0z8cxTbP3b7UxX.uhCQb0oBwe",
@@ -20,40 +19,3 @@
     "createdAt": "2026-08-28T05:27:21.570Z"
   }
 ]
-=======
-    "id": "5339af87-7801-4802-a9cb-ee59d260ea86",
-    "username": "primestark@1122",
-    "passwordHash": "$2b$10$YhDE2U6oqoLuZjTro34I0OfvGUPhIegaArXxkpOhViGnSuM04ARqq",
-    "role": "owner",
-    "createdAt": "2016-02-12T07:17:03.303Z"
-  },
-  {
-    "id": "a9619168-95af-4e50-a8f5-fbed0b6ff2b5",
-    "username": "hr@test",
-    "passwordHash": "$2b$10$me5w6jgn99dPzAsFVg2sheBNWYL6u9QwQD0Nd54e46szOyCs/vOEK",
-    "role": "member",
-    "createdAt": "2018-04-01T07:17:03.303Z"
-  },
-  {
-    "id": "ece44ce3-271b-4654-9264-13d7ddfb1c63",
-    "username": "hr@ahed",
-    "passwordHash": "$2b$10$78GEW8fhcecGtUnvHa.qXO2Z9wGoFHA0Nkf3pa3RWkc4DYZZm.T/i",
-    "role": "admin",
-    "createdAt": "2026-07-31T17:38:01.025Z"
-  },
-  {
-    "id": "563468a6-da48-42b6-b912-14dca84308fd",
-    "username": "hr@aman",
-    "passwordHash": "$2b$10$862gvH27UDRSXxIdmoE2GeV3F5zvqpqPWWIeBHBvD1PlPxMH.y5aG",
-    "role": "admin",
-    "createdAt": "2026-07-31T17:38:10.304Z"
-  },
-  {
-    "id": "6a3b6515-5d26-4b6c-8ed7-433126c87630",
-    "username": "hr@hamza",
-    "passwordHash": "$2b$10$DW1nBoA9t1E4OA8kRp5zGO7p09vSKaU46ru.o2qwrnaD4Tq.DhjnO",
-    "role": "admin",
-    "createdAt": "2026-07-31T17:38:22.047Z"
-  }
-]
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad

@@ -28,13 +28,8 @@ function seedOwner() {
 
   const existing = users.find((u) => u.username === ownerUsername);
   if (existing) {
-<<<<<<< HEAD
-    // don't overwrite the hash here — if the owner changed their password
+    // don't overwrite the hash here â€” if the owner changed their password
     // in the dashboard, data/users.json is the source of truth from then on.
-=======
-    // keep hash in sync with .env in case it was rotated
-    existing.passwordHash = ownerHash;
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
     existing.role = "owner";
   } else {
     users.push({
@@ -57,7 +52,6 @@ function findById(id) {
 }
 
 function listPublic() {
-<<<<<<< HEAD
   return loadUsers().map(({ id, username, displayName, role, secondaryRoles, xp, reputation, department, badges, verified, contributions, createdAt, avatarUrl, theme, accent, density, motion }) => ({
     id,
     username,
@@ -82,16 +76,6 @@ function publicProfile(user) {
   };
 }
 
-=======
-  return loadUsers().map(({ id, username, role, createdAt }) => ({
-    id,
-    username,
-    role,
-    createdAt,
-  }));
-}
-
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 function addUser({ username, passwordHash, role }) {
   const users = loadUsers();
   if (users.find((u) => u.username === username)) {
@@ -102,10 +86,7 @@ function addUser({ username, passwordHash, role }) {
     username,
     passwordHash,
     role,
-<<<<<<< HEAD
     displayName: username.split("@")[0], xp: 0, reputation: 0, department: "Community", badges: [], verified: false, contributions: 0,
-=======
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
     createdAt: new Date().toISOString(),
   };
   users.push(user);
@@ -113,18 +94,6 @@ function addUser({ username, passwordHash, role }) {
   return user;
 }
 
-<<<<<<< HEAD
-=======
-function updateUser(id, changes) {
-  const users = loadUsers();
-  const user = users.find((u) => u.id === id);
-  if (!user) return null;
-  Object.assign(user, changes);
-  saveUsers(users);
-  return user;
-}
-
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 function removeUser(id) {
   const users = loadUsers();
   const target = users.find((u) => u.id === id);
@@ -134,7 +103,6 @@ function removeUser(id) {
   return true;
 }
 
-<<<<<<< HEAD
 function updatePassword(id, passwordHash) {
   const users = loadUsers();
   const target = users.find((u) => u.id === id);
@@ -158,8 +126,6 @@ function updateProfile(id, changes) {
   return target;
 }
 
-=======
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 module.exports = {
   seedOwner,
   findByUsername,
@@ -167,10 +133,7 @@ module.exports = {
   listPublic,
   addUser,
   removeUser,
-<<<<<<< HEAD
   updatePassword,
   updateProfile,
   publicProfile,
-=======
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 };

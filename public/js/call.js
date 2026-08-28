@@ -7,7 +7,6 @@
   const camBtn = document.getElementById("camBtn");
   const screenBtn = document.getElementById("screenBtn");
   const callStatus = document.getElementById("callStatus");
-<<<<<<< HEAD
   const callNotice = document.getElementById("callNotice");
   const videoGrid = document.getElementById("videoGrid");
   const callBadge = document.getElementById("callBadge");
@@ -20,16 +19,11 @@
     micOff: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3l18 18M9 9v1a3 3 0 0 0 4.6 2.5M15 6a3 3 0 0 0-5.7-1.3M5 11a7 7 0 0 0 10.3 6.1M19 11a7 7 0 0 1-1 3.6M12 18v3"/></svg>`,
     screen: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>`,
   };
-=======
-  const videoGrid = document.getElementById("videoGrid");
-  const callBadge = document.getElementById("callBadge");
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 
   let callSocket = null;
   let localStream = null;
   let screenStream = null;
   let inCall = false;
-<<<<<<< HEAD
   let micOn = false;   // becomes true only if we actually got a mic track
   let hasMic = false;
   let camOn = false;
@@ -62,7 +56,7 @@
         ? cams.map((d, i) => `<option value="${d.deviceId}">${d.label || "Camera " + (i + 1)}</option>`).join("")
         : `<option value="">No camera found</option>`;
     } catch {
-      /* enumerateDevices unsupported/blocked — leave selects empty */
+      /* enumerateDevices unsupported/blocked â€” leave selects empty */
     }
   }
   populateDevices();
@@ -129,7 +123,7 @@
         setSpeaking(id, false);
       });
     } catch {
-      /* Web Audio unsupported — skip speaking indicator */
+      /* Web Audio unsupported â€” skip speaking indicator */
     }
   }
 
@@ -139,25 +133,12 @@
   }
 
   function ensureTile(id, { username, isLocal, avatarUrl } = {}) {
-=======
-  let micOn = true;
-  let camOn = false;
-  let sharingScreen = false;
-
-  // socketId -> { pc: RTCPeerConnection, username, role }
-  const peers = new Map();
-
-  function setStatus(text) { callStatus.textContent = text; }
-
-  function ensureTile(id, { username, isLocal } = {}) {
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
     let tile = document.getElementById(`tile-${id}`);
     if (tile) return tile;
     tile = document.createElement("div");
     tile.className = "video-tile";
     tile.id = `tile-${id}`;
     const initial = (username || "?").charAt(0).toUpperCase();
-<<<<<<< HEAD
     const tileAvatarUrl = isLocal && CURRENT_USER ? CURRENT_USER.avatarUrl : avatarUrl || "";
     tile.innerHTML = `
       <video autoplay playsinline ${isLocal ? "muted" : ""}></video>
@@ -168,32 +149,6 @@
         <span class="screen-tag" style="display:none">${ICONS.screen}</span>
       </div>
     `;
-=======
-    const avatarHtml = `<div class="avatar-fallback">${initial}</div>`;
-    tile.innerHTML = `
-      <video autoplay playsinline ${isLocal ? "muted" : ""}></video>
-      ${avatarHtml}
-      <div class="tile-label">
-        <span class="name">${username || "you"}${isLocal ? " (you)" : ""}</span>
-        <span class="mic-off" style="display:none">🔇</span>
-        <span class="screen-tag" style="display:none">🖥️</span>
-      </div>
-    `;
-    tile.addEventListener("click", async () => {
-      const video = tile.querySelector("video");
-      if (!video || !video.srcObject) return;
-      if (document.fullscreenElement === tile) {
-        await document.exitFullscreen().catch(() => {});
-      } else if (tile.requestFullscreen) {
-        await tile.requestFullscreen().catch(() => {
-          tile.classList.toggle("fullscreen-fallback");
-        });
-      } else {
-        tile.classList.toggle("fullscreen-fallback");
-      }
-    });
-
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
     videoGrid.appendChild(tile);
     return tile;
   }
@@ -210,7 +165,6 @@
     tile.classList.toggle("has-video", !!hasVideo);
   }
 
-<<<<<<< HEAD
   function setTileMic(id, muted) {
     const tile = document.getElementById(`tile-${id}`);
     if (tile) tile.querySelector(".mic-off").style.display = muted ? "inline-flex" : "none";
@@ -240,57 +194,11 @@
 
     pc.onicecandidate = (e) => {
       if (e.candidate) callSocket.emit("call:signal", { to: peerId, type: "candidate", payload: e.candidate });
-=======
-  function setMicIndicator(id, muted) {
-    const tile = document.getElementById(`tile-${id}`);
-    if (!tile) return;
-    tile.querySelector(".mic-off").style.display = muted ? "inline" : "none";
-  }
-
-  function setScreenIndicator(id, sharing) {
-    const tile = document.getElementById(`tile-${id}`);
-    if (!tile) return;
-    tile.querySelector(".screen-tag").style.display = sharing ? "inline" : "none";
-  }
-
-  // ---------------- peer connection management ----------------
-  function createPeerConnection(peerId, meta = {}) {
-    const pc = new RTCPeerConnection({ iceServers: ICE_SERVERS });
-    peers.set(peerId, { pc, ...meta });
-
-    if (localStream) {
-      localStream.getAudioTracks().forEach((track) => pc.addTrack(track, localStream));
-      if (!sharingScreen && localStream.getVideoTracks().length > 0) {
-        pc.addTrack(localStream.getVideoTracks()[0], localStream);
-      }
-    }
-
-    if (sharingScreen && screenStream) {
-      const screenTrack = screenStream.getVideoTracks()[0];
-      if (screenTrack) pc.addTrack(screenTrack, screenStream);
-    }
-
-    pc.onicecandidate = (e) => {
-      if (e.candidate) {
-        callSocket.emit("call:signal", { to: peerId, type: "candidate", payload: e.candidate });
-      }
-    };
-
-    pc.onnegotiationneeded = async () => {
-      try {
-        const offer = await pc.createOffer();
-        await pc.setLocalDescription(offer);
-        callSocket.emit("call:signal", { to: peerId, type: "offer", payload: offer });
-      } catch (err) {
-        console.error("Negotiation failed:", err);
-      }
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
     };
 
     pc.ontrack = (e) => {
       const [stream] = e.streams;
       attachStream(peerId, stream, { hasVideo: stream.getVideoTracks().length > 0 });
-<<<<<<< HEAD
       watchSpeaking(peerId, stream);
     };
 
@@ -306,13 +214,6 @@
         /* ignore */
       } finally {
         negotiating = false;
-=======
-    };
-
-    pc.onconnectionstatechange = () => {
-      if (["failed", "closed", "disconnected"].includes(pc.connectionState)) {
-        // leave cleanup to call:peer-left; this just guards stale tiles
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
       }
     };
 
@@ -321,12 +222,8 @@
 
   async function connectToPeer(peerId, meta) {
     const pc = createPeerConnection(peerId, meta);
-<<<<<<< HEAD
     ensureTile(peerId, { username: meta.username, avatarUrl: meta.avatarUrl });
     if (meta.state) applyRemoteState(peerId, meta.state);
-=======
-    ensureTile(peerId, { username: meta.username });
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
     const offer = await pc.createOffer();
     await pc.setLocalDescription(offer);
     callSocket.emit("call:signal", { to: peerId, type: "offer", payload: offer });
@@ -335,11 +232,7 @@
   async function handleSignal({ from, type, payload }) {
     let entry = peers.get(from);
     if (!entry) {
-<<<<<<< HEAD
       createPeerConnection(from, {});
-=======
-      const pc = createPeerConnection(from, {});
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
       entry = peers.get(from);
     }
     const { pc } = entry;
@@ -352,7 +245,6 @@
     } else if (type === "answer") {
       await pc.setRemoteDescription(new RTCSessionDescription(payload));
     } else if (type === "candidate") {
-<<<<<<< HEAD
       try { await pc.addIceCandidate(new RTCIceCandidate(payload)); } catch { /* late candidate */ }
     }
   }
@@ -376,32 +268,14 @@
     removeTile(peerId);
     renderParticipants();
     refreshSpotlight();
-=======
-      try {
-        await pc.addIceCandidate(new RTCIceCandidate(payload));
-      } catch {
-        /* ignore late candidates */
-      }
-    }
-  }
-
-  function closePeer(peerId) {
-    const entry = peers.get(peerId);
-    if (entry) {
-      entry.pc.close();
-      peers.delete(peerId);
-    }
-    removeTile(peerId);
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
   }
 
   function closeAllPeers() {
     for (const id of Array.from(peers.keys())) closePeer(id);
   }
 
-<<<<<<< HEAD
   // ---------------- media: graceful mic acquisition ----------------
-  // Returns a (possibly empty) MediaStream — never throws for permission/device
+  // Returns a (possibly empty) MediaStream â€” never throws for permission/device
   // issues, so joining a call never hard-blocks on mic access.
   async function acquireLocalStream() {
     if (!window.isSecureContext) {
@@ -419,52 +293,11 @@
       hasMic = false;
       micOn = false;
       if (err && err.name === "NotFoundError") {
-        showNotice("No microphone detected — you joined without audio. You can still see/hear others and use chat.");
+        showNotice("No microphone detected â€” you joined without audio. You can still see/hear others and use chat.");
       } else {
-        showNotice("Microphone access was blocked — you joined without audio. Allow mic access in your browser's site settings to talk.");
+        showNotice("Microphone access was blocked â€” you joined without audio. Allow mic access in your browser's site settings to talk.");
       }
       return new MediaStream();
-=======
-  // ---------------- media controls ----------------
-  function formatMediaError(err) {
-    if (!err) return "Media permission denied";
-    if (err.name === "NotAllowedError" || err.name === "PermissionDeniedError") {
-      return "Microphone permission is required to join the call. Please allow access in your browser settings.";
-    }
-    if (err.name === "NotFoundError" || err.name === "DevicesNotFoundError") {
-      return "No microphone was found. Please connect a microphone and try again.";
-    }
-    return err.message || "Unable to access media devices.";
-  }
-
-  async function getMic() {
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-      throw new Error("Media devices are not supported by this browser.");
-    }
-    if (!localStream) {
-      localStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
-    }
-    return localStream;
-  }
-
-  async function initLocalStream() {
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-      throw new Error("Media devices are not supported by this browser.");
-    }
-
-    try {
-      await getMic();
-      micOn = true;
-      return { noMic: false };
-    } catch (err) {
-      const noMicError = ["NotAllowedError", "PermissionDeniedError", "NotFoundError", "DevicesNotFoundError"].includes(err.name);
-      if (noMicError) {
-        localStream = new MediaStream();
-        micOn = false;
-        return { noMic: true, error: err };
-      }
-      throw err;
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
     }
   }
 
@@ -477,7 +310,6 @@
   }
 
   micBtn.addEventListener("click", () => {
-<<<<<<< HEAD
     if (!localStream || !hasMic) return;
     micOn = !micOn;
     localStream.getAudioTracks().forEach((t) => (t.enabled = micOn));
@@ -486,33 +318,20 @@
     setTileMic("local", !micOn);
     renderParticipants();
     broadcastState();
-=======
-    if (!localStream) return;
-    micOn = !micOn;
-    localStream.getAudioTracks().forEach((t) => (t.enabled = micOn));
-    micBtn.classList.toggle("active-toggle", micOn);
-    micBtn.textContent = micOn ? "🎤 Mic" : "🔇 Muted";
-    setMicIndicator("local", !micOn);
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
   });
 
   camBtn.addEventListener("click", async () => {
     if (!inCall) return;
     if (!camOn) {
       try {
-<<<<<<< HEAD
         const constraints = camSelect.value ? { video: { deviceId: { exact: camSelect.value } } } : { video: true };
         const camStream = await navigator.mediaDevices.getUserMedia(constraints);
-=======
-        const camStream = await navigator.mediaDevices.getUserMedia({ video: true });
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
         const videoTrack = camStream.getVideoTracks()[0];
         localStream.addTrack(videoTrack);
         replaceOutgoingTrack("video", videoTrack);
         attachStream("local", localStream, { hasVideo: true });
         camOn = true;
         camBtn.classList.add("active-toggle");
-<<<<<<< HEAD
       } catch {
         toast("Camera permission denied or unavailable", "error");
         return;
@@ -526,20 +345,6 @@
     }
     renderParticipants();
     broadcastState();
-=======
-        camBtn.textContent = "📷 Stop Camera";
-      } catch (err) {
-        toast("Camera permission denied", "error");
-      }
-    } else {
-      localStream.getVideoTracks().forEach((t) => { t.stop(); localStream.removeTrack(t); });
-      replaceOutgoingTrack("video", null);
-      attachStream("local", localStream, { hasVideo: false });
-      camOn = false;
-      camBtn.classList.remove("active-toggle");
-      camBtn.textContent = "📷 Camera";
-    }
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
   });
 
   screenBtn.addEventListener("click", async () => {
@@ -550,7 +355,6 @@
         const screenTrack = screenStream.getVideoTracks()[0];
         replaceOutgoingTrack("video", screenTrack);
         attachStream("local", screenStream, { hasVideo: true });
-<<<<<<< HEAD
         setTileScreen("local", true);
         sharingScreen = true;
         screenBtn.classList.add("active-toggle");
@@ -558,32 +362,19 @@
       } catch {
         toast("Screen share cancelled", "error");
         return;
-=======
-        setScreenIndicator("local", true);
-        sharingScreen = true;
-        screenBtn.classList.add("active-toggle");
-        screenBtn.textContent = "🖥️ Stop Sharing";
-        screenTrack.onended = () => stopScreenShare();
-      } catch {
-        toast("Screen share cancelled", "error");
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
       }
     } else {
       stopScreenShare();
     }
-<<<<<<< HEAD
     renderParticipants();
     refreshSpotlight();
     broadcastState();
-=======
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
   });
 
   function stopScreenShare() {
     if (screenStream) screenStream.getTracks().forEach((t) => t.stop());
     screenStream = null;
     sharingScreen = false;
-<<<<<<< HEAD
     setTileScreen("local", false);
     screenBtn.classList.remove("active-toggle");
     const camTrack = camOn ? localStream.getVideoTracks()[0] : null;
@@ -597,46 +388,14 @@
   joinBtn.addEventListener("click", async () => {
     localStream = await acquireLocalStream();
     populateDevices(); // labels only appear after permission is granted
-=======
-    setScreenIndicator("local", false);
-    screenBtn.classList.remove("active-toggle");
-    screenBtn.textContent = "🖥️ Share Screen";
-    const camTrack = camOn ? localStream.getVideoTracks()[0] : null;
-    replaceOutgoingTrack("video", camTrack || null);
-    attachStream("local", localStream, { hasVideo: camOn });
-  }
-
-  // ---------------- join / leave ----------------
-  joinBtn.addEventListener("click", async () => {
-    let streamResult;
-    try {
-      streamResult = await initLocalStream();
-    } catch (err) {
-      toast(formatMediaError(err), "error");
-      return;
-    }
-
-    if (streamResult && streamResult.noMic) {
-      toast("Joined call without microphone. Tap screen share to broadcast your display.", "warning");
-    }
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 
     callSocket = io();
     inCall = true;
 
-<<<<<<< HEAD
     ensureTile("local", { username: (CURRENT_USER && CURRENT_USER.username) || "you", isLocal: true });
     attachStream("local", localStream, { hasVideo: false });
     if (hasMic) watchSpeaking("local", localStream);
     renderParticipants();
-=======
-    const currentUser = typeof CURRENT_USER !== "undefined" ? CURRENT_USER : null;
-    ensureTile("local", { username: (currentUser && currentUser.username) || "you", isLocal: true });
-    attachStream("local", localStream, { hasVideo: false });
-
-    micBtn.classList.toggle("active-toggle", micOn);
-    micBtn.textContent = micOn ? "🎤 Mic" : "🔇 No Mic";
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 
     callSocket.on("connect", () => {
       callSocket.emit("call:join");
@@ -645,7 +404,6 @@
     });
 
     callSocket.on("call:peers", (existingPeers) => {
-<<<<<<< HEAD
       existingPeers.forEach((p) => connectToPeer(p.socketId, { username: p.username, avatarUrl: p.avatarUrl, role: p.role, state: p.state }));
     });
 
@@ -653,18 +411,10 @@
       ensureTile(p.socketId, { username: p.username, avatarUrl: p.avatarUrl });
       if (!peers.has(p.socketId)) peers.set(p.socketId, { username: p.username, avatarUrl: p.avatarUrl, role: p.role, micOn: true, camOn: false, sharingScreen: false });
       renderParticipants();
-=======
-      existingPeers.forEach((p) => connectToPeer(p.socketId, { username: p.username, role: p.role }));
-    });
-
-    callSocket.on("call:peer-joined", (p) => {
-      ensureTile(p.socketId, { username: p.username });
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
       toast(`${p.username} joined the call`);
     });
 
     callSocket.on("call:signal", handleSignal);
-<<<<<<< HEAD
     callSocket.on("call:state", ({ socketId, state }) => applyRemoteState(socketId, state));
     callSocket.on("profile:updated", (profile) => {
       for (const entry of peers.values()) {
@@ -688,19 +438,6 @@
     screenBtn.disabled = false;
     if (hasMic) micBtn.classList.add("active-toggle");
     else setTileMic("local", true);
-=======
-
-    callSocket.on("call:peer-left", ({ socketId }) => {
-      closePeer(socketId);
-    });
-
-    joinBtn.style.display = "none";
-    leaveBtn.style.display = "inline-block";
-    micBtn.disabled = false;
-    camBtn.disabled = false;
-    screenBtn.disabled = false;
-    micBtn.classList.add("active-toggle");
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
   });
 
   leaveBtn.addEventListener("click", leaveCall);
@@ -713,10 +450,7 @@
       callSocket = null;
     }
     closeAllPeers();
-<<<<<<< HEAD
     stopWatching("local");
-=======
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
     if (localStream) localStream.getTracks().forEach((t) => t.stop());
     if (screenStream) screenStream.getTracks().forEach((t) => t.stop());
     localStream = null;
@@ -725,21 +459,14 @@
     inCall = false;
     camOn = false;
     sharingScreen = false;
-<<<<<<< HEAD
     micOn = false;
     hasMic = false;
 
     joinBtn.style.display = "inline-flex";
-=======
-    micOn = true;
-
-    joinBtn.style.display = "inline-block";
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
     leaveBtn.style.display = "none";
     micBtn.disabled = true;
     camBtn.disabled = true;
     screenBtn.disabled = true;
-<<<<<<< HEAD
     micBtn.classList.remove("active-toggle", "muted-state");
     camBtn.classList.remove("active-toggle");
     screenBtn.classList.remove("active-toggle");
@@ -751,19 +478,4 @@
   }
 
   window.addEventListener("beforeunload", () => { if (inCall) leaveCall(); });
-=======
-    micBtn.classList.remove("active-toggle");
-    camBtn.classList.remove("active-toggle");
-    screenBtn.classList.remove("active-toggle");
-    micBtn.textContent = "🎤 Mic";
-    camBtn.textContent = "📷 Camera";
-    screenBtn.textContent = "🖥️ Share Screen";
-    setStatus("Not connected");
-    callBadge.style.display = "none";
-  }
-
-  window.addEventListener("beforeunload", () => {
-    if (inCall) leaveCall();
-  });
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 })();

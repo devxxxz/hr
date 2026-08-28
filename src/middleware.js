@@ -15,7 +15,6 @@ function requireRole(...roles) {
   };
 }
 
-<<<<<<< HEAD
 function requirePermission(permission) {
   return (req, res, next) => {
     if (!req.session || !req.session.user) return res.status(401).json({ ok: false, message: "Not authenticated" });
@@ -26,6 +25,3 @@ function requirePermission(permission) {
 }
 
 module.exports = { requireAuth, requireRole, requirePermission };
-=======
-module.exports = { requireAuth, requireRole };
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad

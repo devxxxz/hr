@@ -7,11 +7,7 @@ form.addEventListener("submit", async (e) => {
   statusMsg.textContent = "";
   statusMsg.className = "status";
   loginBtn.disabled = true;
-<<<<<<< HEAD
   loginBtn.querySelector(".btn-label").textContent = "Authenticating...";
-=======
-  loginBtn.querySelector("span").textContent = "Authenticating...";
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value;
@@ -37,10 +33,6 @@ form.addEventListener("submit", async (e) => {
     statusMsg.className = "status error";
   } finally {
     loginBtn.disabled = false;
-<<<<<<< HEAD
     loginBtn.querySelector(".btn-label").textContent = "Access Terminal";
-=======
-    loginBtn.querySelector("span").textContent = "Access Terminal";
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
   }
 });

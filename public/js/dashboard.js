@@ -1,5 +1,4 @@
 let CURRENT_USER = null;
-<<<<<<< HEAD
 let CONTROL_DATA = null;
 const XP_RANKS = [[0,"Newborn"],[100,"Initiate"],[300,"Operator"],[750,"Analyst"],[1500,"Specialist"],[3000,"Researcher"],[6000,"Sentinel"],[10000,"Vanguard"],[20000,"Elite"],[35000,"Shadow"],[50000,"ShadowByte"],[75000,"Black Ops"],[100000,"Apex"]];
 
@@ -10,11 +9,6 @@ function avatarMarkup(user, className = "") {
     : `<span class="avatar-letter ${className}">${initial}</span>`;
 }
 
-=======
-const avatarInitial = document.getElementById("avatarInitial");
-
-// ---------- toast ----------
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 function toast(msg, type = "success") {
   const el = document.createElement("div");
   el.className = `toast ${type}`;
@@ -23,15 +17,10 @@ function toast(msg, type = "success") {
   setTimeout(() => el.remove(), 3000);
 }
 
-<<<<<<< HEAD
-=======
-// ---------- nav / mobile menu ----------
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 const sidebar = document.getElementById("sidebar");
 const overlay = document.getElementById("overlay");
 const hamburger = document.getElementById("hamburger");
 
-<<<<<<< HEAD
 function openSidebar() { sidebar.classList.add("open"); overlay.classList.add("show"); document.body.classList.add("sidebar-is-open"); }
 function closeSidebar() { sidebar.classList.remove("open"); overlay.classList.remove("show"); document.body.classList.remove("sidebar-is-open"); }
 hamburger.addEventListener("click", () => sidebar.classList.contains("open") ? closeSidebar() : openSidebar());
@@ -40,13 +29,6 @@ overlay.addEventListener("click", closeSidebar);
 let unreadChat = 0;
 const chatBadge = document.getElementById("chatBadge");
 
-=======
-function openSidebar() { sidebar.classList.add("open"); overlay.classList.add("show"); }
-function closeSidebar() { sidebar.classList.remove("open"); overlay.classList.remove("show"); }
-hamburger.addEventListener("click", () => sidebar.classList.contains("open") ? closeSidebar() : openSidebar());
-overlay.addEventListener("click", closeSidebar);
-
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 document.querySelectorAll(".nav-item[data-section]").forEach((btn) => {
   btn.addEventListener("click", () => {
     document.querySelectorAll(".nav-item[data-section]").forEach((b) => b.classList.remove("active"));
@@ -54,7 +36,6 @@ document.querySelectorAll(".nav-item[data-section]").forEach((btn) => {
     const section = btn.dataset.section;
     document.querySelectorAll(".section").forEach((s) => s.classList.remove("active"));
     document.getElementById(`section-${section}`).classList.add("active");
-<<<<<<< HEAD
     document.getElementById("sectionTitle").textContent = btn.textContent.trim().split("\n")[0].trim();
     closeSidebar();
     if (section === "members") loadMembers();
@@ -64,16 +45,6 @@ document.querySelectorAll(".nav-item[data-section]").forEach((btn) => {
   });
 });
 
-=======
-    document.getElementById("sectionTitle").textContent = btn.dataset.label || btn.textContent.trim();
-    closeSidebar();
-    if (section === "members") loadMembers();
-    if (section === "files") loadFiles();
-  });
-});
-
-// ---------- who am I / role gating ----------
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 async function loadMe() {
   try {
     const res = await fetch("/api/me");
@@ -85,7 +56,6 @@ async function loadMe() {
     document.getElementById("whoamiRole").textContent = CURRENT_USER.role;
     document.getElementById("roleBadge").textContent = CURRENT_USER.role.toUpperCase();
     document.getElementById("accessLevel").textContent = CURRENT_USER.role === "owner" ? "ROOT" : CURRENT_USER.role.toUpperCase();
-<<<<<<< HEAD
     applyProfile(CURRENT_USER);
     document.getElementById("welcomeName").textContent = CURRENT_USER.username.split("@")[0];
     document.getElementById("heroName").textContent = CURRENT_USER.username;
@@ -96,43 +66,28 @@ async function loadMe() {
     if (CURRENT_USER.role === "owner" || CURRENT_USER.role === "admin") {
       document.getElementById("membersNav").style.display = "flex";
     }
-=======
-    document.getElementById("avatarInitial").textContent = CURRENT_USER.username.charAt(0).toUpperCase();
-
-    if (CURRENT_USER.role === "owner" || CURRENT_USER.role === "admin") {
-      document.getElementById("membersNav").style.display = "flex";
-      document.getElementById("membersNav").querySelector(".badge").textContent = CURRENT_USER.role;
-    }
-    // only owner can add members
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
     if (CURRENT_USER.role !== "owner") {
       const form = document.querySelector(".member-form");
       if (form) form.style.display = "none";
     }
 
-<<<<<<< HEAD
     connectChatSocket();
     loadFiles();
     loadControlCenter();
     loadAssignableRoles();
     loadRoleRequests();
-=======
-    connectSocket();
-    loadFiles();
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
   } catch {
     window.location.href = "/";
   }
 }
 loadMe();
 
-<<<<<<< HEAD
-async function loadAssignableRoles() { try { const response = await fetch("/api/role-requests"); const data = await response.json(); if (!data.ok) return; const publicRoles = data.roles.filter(isPublicRole); const select = document.getElementById("newRole"); if (select) select.innerHTML = publicRoles.map((role) => `<option value="${role.id}">${escapeHtml(role.name)}</option>`).join(""); if (rolePickerGrid) rolePickerGrid.innerHTML = publicRoles.map((role) => `<button type="button" class="role-choice" data-role-id="${role.id}" data-role-name="${escapeHtml(role.name)}"><span class="role-choice-icon">✦</span><span><strong>${escapeHtml(role.name)}</strong><small>${escapeHtml(role.department)}</small></span><span class="role-choice-arrow">›</span></button>`).join(""); } catch { /* keep the safe default role options */ } }
+async function loadAssignableRoles() { try { const response = await fetch("/api/role-requests"); const data = await response.json(); if (!data.ok) return; const publicRoles = data.roles.filter(isPublicRole); const select = document.getElementById("newRole"); if (select) select.innerHTML = publicRoles.map((role) => `<option value="${role.id}">${escapeHtml(role.name)}</option>`).join(""); if (rolePickerGrid) rolePickerGrid.innerHTML = publicRoles.map((role) => `<button type="button" class="role-choice" data-role-id="${role.id}" data-role-name="${escapeHtml(role.name)}"><span class="role-choice-icon">âœ¦</span><span><strong>${escapeHtml(role.name)}</strong><small>${escapeHtml(role.department)}</small></span><span class="role-choice-arrow">â€º</span></button>`).join(""); } catch { /* keep the safe default role options */ } }
 loadAssignableRoles();
 
-async function loadRoleRequests() { try { const res = await fetch("/api/role-requests"); const data = await res.json(); if (!data.ok) return; const select = document.getElementById("requestRole"); select.innerHTML = data.roles.map((role) => `<option value="${role.id}">${escapeHtml(role.name)} · ${escapeHtml(role.department)}</option>`).join(""); const canReview = CURRENT_USER && ["owner", "Founder", "admin", "Administrator", "Co-Founder", "Executive", "Director"].includes(CURRENT_USER.role); document.getElementById("requestScope").textContent = canReview ? "REVIEW QUEUE" : "MY REQUESTS"; document.getElementById("roleRequestList").innerHTML = data.requests.length ? data.requests.map((request) => `<div class="request-row"><div><strong>${escapeHtml(request.username)} · ${escapeHtml(request.role)}</strong><small>${escapeHtml(request.reason)}</small><time>${new Date(request.createdAt).toLocaleDateString()} · ${request.status.toUpperCase()}</time></div>${canReview && request.status === "pending" ? `<span class="request-actions"><button class="btn btn-primary" data-request="${request.id}" data-decision="approved">Approve</button><button class="btn btn-danger" data-request="${request.id}" data-decision="rejected">Reject</button></span>` : `<em class="request-status ${request.status}">${request.status}</em>`}</div>`).join("") : `<div class="empty-state"><strong>No role requests</strong><small>Your queue is clear.</small></div>`; } catch { toast("Could not load role requests", "error"); } }
+async function loadRoleRequests() { try { const res = await fetch("/api/role-requests"); const data = await res.json(); if (!data.ok) return; const select = document.getElementById("requestRole"); select.innerHTML = data.roles.map((role) => `<option value="${role.id}">${escapeHtml(role.name)} Â· ${escapeHtml(role.department)}</option>`).join(""); const canReview = CURRENT_USER && ["owner", "Founder", "admin", "Administrator", "Co-Founder", "Executive", "Director"].includes(CURRENT_USER.role); document.getElementById("requestScope").textContent = canReview ? "REVIEW QUEUE" : "MY REQUESTS"; document.getElementById("roleRequestList").innerHTML = data.requests.length ? data.requests.map((request) => `<div class="request-row"><div><strong>${escapeHtml(request.username)} Â· ${escapeHtml(request.role)}</strong><small>${escapeHtml(request.reason)}</small><time>${new Date(request.createdAt).toLocaleDateString()} Â· ${request.status.toUpperCase()}</time></div>${canReview && request.status === "pending" ? `<span class="request-actions"><button class="btn btn-primary" data-request="${request.id}" data-decision="approved">Approve</button><button class="btn btn-danger" data-request="${request.id}" data-decision="rejected">Reject</button></span>` : `<em class="request-status ${request.status}">${request.status}</em>`}</div>`).join("") : `<div class="empty-state"><strong>No role requests</strong><small>Your queue is clear.</small></div>`; } catch { toast("Could not load role requests", "error"); } }
 function isPublicRole(role) { return role.enabled && role.department !== "Leadership" && role.department !== "Administration" && !role.permissions.some((permission) => ["users", "roles", "system"].includes(permission)); }
-function renderRankRoles(rolesList) { const catalog = document.getElementById("rankRoleCatalog"); if (!catalog) return; catalog.innerHTML = rolesList.filter(isPublicRole).map((role) => `<article class="rank-role"><span class="role-icon">✦</span><strong>${escapeHtml(role.name)}</strong><small>${escapeHtml(role.department)} · ${escapeHtml(role.description)}</small><em>AVAILABLE BY REQUEST</em></article>`).join(""); }
+function renderRankRoles(rolesList) { const catalog = document.getElementById("rankRoleCatalog"); if (!catalog) return; catalog.innerHTML = rolesList.filter(isPublicRole).map((role) => `<article class="rank-role"><span class="role-icon">âœ¦</span><strong>${escapeHtml(role.name)}</strong><small>${escapeHtml(role.department)} Â· ${escapeHtml(role.description)}</small><em>AVAILABLE BY REQUEST</em></article>`).join(""); }
 document.getElementById("submitRoleRequest")?.addEventListener("click", async () => { const status = document.getElementById("requestStatus"); const res = await fetch("/api/role-requests", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ roleId: document.getElementById("requestRole").value, reason: document.getElementById("requestReason").value }) }); const data = await res.json(); status.textContent = data.ok ? "Request sent to the owners." : (data.message || "Request failed."); status.className = `status ${data.ok ? "success" : "error"}`; if (data.ok) { document.getElementById("requestReason").value = ""; loadRoleRequests(); } });
 document.getElementById("roleRequestList")?.addEventListener("click", async (event) => { const button = event.target.closest("[data-request]"); if (!button) return; const res = await fetch(`/api/role-requests/${button.dataset.request}`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ status: button.dataset.decision }) }); const data = await res.json(); if (!data.ok) toast(data.message || "Decision failed", "error"); else { toast(`Request ${button.dataset.decision}`); loadRoleRequests(); } });
 document.querySelectorAll("[data-jump='ranks']").forEach((button) => button.addEventListener("click", () => document.querySelector("[data-section='ranks']").click()));
@@ -141,19 +96,17 @@ function rankForXp(xp) { let current = XP_RANKS[0]; XP_RANKS.forEach((rank) => {
 function renderRankProfile(user, leaderboard) {
   const current = rankForXp(user.xp || 0);
   document.getElementById("rankAvatar").innerHTML = avatarMarkup(user); document.getElementById("rankUsername").textContent = user.displayName || user.username; document.getElementById("rankDepartment").textContent = user.department || "Community"; document.getElementById("currentRank").textContent = current[1]; document.getElementById("rankReputation").textContent = (user.reputation || 0).toLocaleString(); document.getElementById("rankContributions").textContent = (user.contributions || 0).toLocaleString();
-  const entry = leaderboard.find((member) => member.id === user.id); document.getElementById("rankPosition").textContent = entry ? `#${entry.position}` : "#—"; document.getElementById("rankRole").textContent = (user.role || "member").toUpperCase();
+  const entry = leaderboard.find((member) => member.id === user.id); document.getElementById("rankPosition").textContent = entry ? `#${entry.position}` : "#â€”"; document.getElementById("rankRole").textContent = (user.role || "member").toUpperCase();
   document.getElementById("profileFacts").innerHTML = `<span><small>Display name</small><b>${escapeHtml(user.displayName || user.username)}</b></span><span><small>Join date</small><b>${new Date(user.createdAt || Date.now()).toLocaleDateString()}</b></span><span><small>Verification</small><b>${user.verified ? "Verified identity" : "Pending review"}</b></span><span><small>Team / department</small><b>${escapeHtml(user.department || "Community")}</b></span>`;
   document.getElementById("profileBadges").innerHTML = (user.badges && user.badges.length ? user.badges : ["VERIFIED", "RESEARCHER"]).map((badge) => `<span class="security-badge">${escapeHtml(badge)}</span>`).join("");
 }
-function renderLeaderboard(list) { document.getElementById("leaderboardRows").innerHTML = list.map((member) => `<div class="leader-row"><span class="leader-person"><b>#${member.position}</b>${avatarMarkup(member, "avatar-small")}<strong>${escapeHtml(member.displayName || member.username)}<small>@${escapeHtml(member.username)}</small></strong></span><span class="leader-rank">${escapeHtml(member.role)}</span><span>${(member.reputation || 0).toLocaleString()}</span><span class="leader-department">${escapeHtml(member.department || "Community")}</span><span class="leader-badges">${(member.badges || []).slice(0, 2).map((badge) => `<i>${escapeHtml(badge)}</i>`).join("") || "—"}</span></div>`).join(""); }
+function renderLeaderboard(list) { document.getElementById("leaderboardRows").innerHTML = list.map((member) => `<div class="leader-row"><span class="leader-person"><b>#${member.position}</b>${avatarMarkup(member, "avatar-small")}<strong>${escapeHtml(member.displayName || member.username)}<small>@${escapeHtml(member.username)}</small></strong></span><span class="leader-rank">${escapeHtml(member.role)}</span><span>${(member.reputation || 0).toLocaleString()}</span><span class="leader-department">${escapeHtml(member.department || "Community")}</span><span class="leader-badges">${(member.badges || []).slice(0, 2).map((badge) => `<i>${escapeHtml(badge)}</i>`).join("") || "â€”"}</span></div>`).join(""); }
 async function loadControlCenter() { try { const res = await fetch("/api/control-center"); const data = await res.json(); if (!data.ok) return; CONTROL_DATA = data; const canManage = data.roles.some((role) => role.permissions.includes("*") || role.permissions.includes("roles")); const canReview = data.roles.some((role) => role.permissions.includes("*") || role.permissions.includes("users")); document.getElementById("controlNav").style.display = canManage ? "flex" : "none"; document.getElementById("membersNav").style.display = canReview ? "flex" : "none"; const roleSelect = document.getElementById("newRole"); if (roleSelect) roleSelect.innerHTML = data.roles.filter((role) => role.enabled).map((role) => `<option value="${role.id}">${escapeHtml(role.name)}</option>`).join(""); renderRankRoles(data.roles.filter((role) => role.enabled)); renderRankProfile(data.user, data.leaderboard); renderLeaderboard(data.leaderboard); renderRoleCatalog(data.roles); document.getElementById("roleCount").textContent = data.roles.filter((role) => role.enabled).length; document.getElementById("memberCount").textContent = data.members.length; document.getElementById("permissionCount").textContent = data.permissions.length; if (data.audit?.length) document.getElementById("auditLog").innerHTML = data.audit.map((event) => `<div class="audit-row"><b>${new Date(event.timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</b><span><strong>${escapeHtml(event.actor)} ${escapeHtml(event.action)} ${escapeHtml(event.target || "")}</strong><small>${escapeHtml(event.reason || "Permission event recorded")}</small></span><em>${escapeHtml(event.result)}</em></div>`).join(""); } catch { /* dashboard remains usable when control data is unavailable */ } }
-function renderRoleCatalog(roleList) { const query = (document.getElementById("roleSearch")?.value || "").toLowerCase(); document.getElementById("roleCatalog").innerHTML = roleList.filter((role) => role.name.toLowerCase().includes(query) || role.department.toLowerCase().includes(query)).sort((a,b) => a.position - b.position).map((role) => `<div class="role-row"><span class="role-icon">${role.icon === "shield" ? "⌾" : role.icon === "code" ? "⌘" : "✦"}</span><span class="role-copy"><strong>${escapeHtml(role.name)}</strong><small>${escapeHtml(role.department)} · ${escapeHtml(role.description)}</small></span><span class="permission-count">${role.permissions.includes("*") ? "ALL" : role.permissions.length + " permissions"}</span><button class="icon-action" title="Toggle role" data-role-toggle="${role.id}">${role.enabled ? "ON" : "OFF"}</button></div>`).join(""); }
+function renderRoleCatalog(roleList) { const query = (document.getElementById("roleSearch")?.value || "").toLowerCase(); document.getElementById("roleCatalog").innerHTML = roleList.filter((role) => role.name.toLowerCase().includes(query) || role.department.toLowerCase().includes(query)).sort((a,b) => a.position - b.position).map((role) => `<div class="role-row"><span class="role-icon">${role.icon === "shield" ? "âŒ¾" : role.icon === "code" ? "âŒ˜" : "âœ¦"}</span><span class="role-copy"><strong>${escapeHtml(role.name)}</strong><small>${escapeHtml(role.department)} Â· ${escapeHtml(role.description)}</small></span><span class="permission-count">${role.permissions.includes("*") ? "ALL" : role.permissions.length + " permissions"}</span><button class="icon-action" title="Toggle role" data-role-toggle="${role.id}">${role.enabled ? "ON" : "OFF"}</button></div>`).join(""); }
 document.getElementById("roleSearch")?.addEventListener("input", () => renderRoleCatalog(CONTROL_DATA?.roles || []));
 document.getElementById("roleCatalog")?.addEventListener("click", async (event) => { const button = event.target.closest("[data-role-toggle]"); if (!button || !CONTROL_DATA) return; const role = CONTROL_DATA.roles.find((item) => item.id === button.dataset.roleToggle); if (!role) return; if (role.permissions.includes("*") || role.permissions.some((permission) => ["users", "roles", "security", "system"].includes(permission))) { if (!window.confirm("This changes a sensitive permission boundary. Continue?")) return; } const res = await fetch(`/api/roles/${role.id}`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ enabled: !role.enabled, reason: "Role availability update" }) }); const data = await res.json(); if (!data.ok) return toast(data.message || "Role update denied", "error"); toast(`${role.name} ${role.enabled ? "disabled" : "enabled"}`); loadControlCenter(); });
 document.getElementById("leaderFilters")?.addEventListener("click", (event) => { const button = event.target.closest("button"); if (!button || !CONTROL_DATA) return; document.querySelectorAll("#leaderFilters button").forEach((item) => item.classList.remove("active")); button.classList.add("active"); const filter = button.dataset.filter; const list = filter === "Global" ? CONTROL_DATA.leaderboard : CONTROL_DATA.leaderboard.filter((member) => (filter === "Security" && member.department.includes("Security")) || (filter === "Developers" && member.department.includes("Engineering")) || (filter === "Researchers" && member.rank.includes("Research")) || (filter === "Community" && member.department === "Community" ) || filter === "Weekly" || filter === "Monthly"); renderLeaderboard(list.map((member, index) => ({ ...member, position: index + 1 }))); });
 document.getElementById("newRoleBtn")?.addEventListener("click", async () => { const name = window.prompt("Role name"); if (!name) return; const department = window.prompt("Department", "Custom"); const description = window.prompt("Role description", "Custom ShadowByte role."); const sensitive = window.confirm("Does this role need sensitive permissions such as user, role, security, or system management?"); if (sensitive && !window.confirm("Sensitive permissions can change the security boundary. Create this role?")) return; const res = await fetch("/api/roles", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, department, description, permissions: sensitive ? ["dashboard", "security"] : ["dashboard"], level: 1 }) }); const data = await res.json(); if (!data.ok) return toast(data.message || "Role creation denied", "error"); toast("Role created"); loadControlCenter(); });
-=======
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 
 document.getElementById("logoutBtn").addEventListener("click", async () => {
   const res = await fetch("/api/logout", { method: "POST" });
@@ -161,7 +114,6 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
   window.location.href = data.redirect || "/";
 });
 
-<<<<<<< HEAD
 // ---------- Lightbox ----------
 const lightbox = document.getElementById("lightbox");
 const lightboxBody = document.getElementById("lightboxBody");
@@ -176,8 +128,6 @@ function closeLightbox() {
   lightboxBody.innerHTML = "";
 }
 
-=======
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 // ---------- Files ----------
 const dropzone = document.getElementById("dropzone");
 const fileInput = document.getElementById("fileInput");
@@ -222,11 +172,11 @@ async function uploadFiles(fileList) {
 }
 
 function iconFor(mimetype) {
-  if (mimetype.startsWith("image/")) return "🖼️";
-  if (mimetype.startsWith("video/")) return "🎬";
-  if (mimetype === "application/pdf") return "📄";
-  if (mimetype.includes("zip")) return "🗜️";
-  return "📁";
+  if (mimetype.startsWith("image/")) return "ðŸ–¼ï¸";
+  if (mimetype.startsWith("video/")) return "ðŸŽ¬";
+  if (mimetype === "application/pdf") return "ðŸ“„";
+  if (mimetype.includes("zip")) return "ðŸ—œï¸";
+  return "ðŸ“";
 }
 
 function fmtSize(bytes) {
@@ -247,30 +197,18 @@ async function loadFiles() {
       card.className = "file-card";
 
       let thumb = `<div class="icon">${iconFor(f.mimetype)}</div>`;
-<<<<<<< HEAD
       const isImage = f.mimetype.startsWith("image/");
       const isVideo = f.mimetype.startsWith("video/");
       if (isImage) thumb = `<img src="/api/files/${f.id}/raw" alt="${f.originalName}" loading="lazy" />`;
       else if (isVideo) thumb = `<video src="/api/files/${f.id}/raw" muted></video>`;
-=======
-      if (f.mimetype.startsWith("image/")) {
-        thumb = `<img src="/api/files/${f.id}/raw" alt="${f.originalName}" loading="lazy" />`;
-      } else if (f.mimetype.startsWith("video/")) {
-        thumb = `<video src="/api/files/${f.id}/raw" muted></video>`;
-      }
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 
       const canDelete = CURRENT_USER && (["owner", "admin"].includes(CURRENT_USER.role) || f.uploadedById === CURRENT_USER.id);
 
       card.innerHTML = `
-<<<<<<< HEAD
         <div class="file-thumb" data-preview="${f.id}" data-type="${isImage ? "image" : isVideo ? "video" : "other"}">${thumb}</div>
-=======
-        <div class="file-thumb">${thumb}</div>
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
         <div class="file-info">
           <div class="file-name" title="${f.originalName}">${f.originalName}</div>
-          <div class="file-meta">${fmtSize(f.size)} · ${f.uploadedBy}</div>
+          <div class="file-meta">${fmtSize(f.size)} Â· ${f.uploadedBy}</div>
         </div>
         <div class="file-actions">
           <button class="btn btn-ghost" onclick="window.open('/api/files/${f.id}/download','_blank')">Download</button>
@@ -280,7 +218,6 @@ async function loadFiles() {
       fileGrid.appendChild(card);
     });
 
-<<<<<<< HEAD
     fileGrid.querySelectorAll("[data-preview]").forEach((el) => {
       el.addEventListener("click", () => {
         const id = el.dataset.preview;
@@ -291,8 +228,6 @@ async function loadFiles() {
       });
     });
 
-=======
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
     fileGrid.querySelectorAll("[data-delete]").forEach((btn) => {
       btn.addEventListener("click", async () => {
         const id = btn.dataset.delete;
@@ -307,30 +242,12 @@ async function loadFiles() {
   }
 }
 
-<<<<<<< HEAD
 // ---------- Chat (always-on socket) ----------
 let chatSocket = null;
 const chatMessages = document.getElementById("chatMessages");
 const chatInput = document.getElementById("chatInput");
 const chatSend = document.getElementById("chatSend");
 const typingIndicator = document.getElementById("typingIndicator");
-=======
-// ---------- Chat ----------
-let socket = null;
-const chatMessages = document.getElementById("chatMessages");
-const chatInput = document.getElementById("chatInput");
-const chatSend = document.getElementById("chatSend");
-
-function renderMessage(msg) {
-  const div = document.createElement("div");
-  const mine = CURRENT_USER && msg.username === CURRENT_USER.username;
-  div.className = "chat-msg" + (mine ? " mine" : "");
-  const time = new Date(msg.ts).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-  div.innerHTML = `<div class="meta">${msg.username} · ${msg.role} · ${time}</div>${escapeHtml(msg.text)}`;
-  chatMessages.appendChild(div);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-}
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 
 function escapeHtml(str) {
   const div = document.createElement("div");
@@ -338,7 +255,6 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
-<<<<<<< HEAD
 function applyProfile(user) {
   const themes = ["hacker", "liquid", "aurora", "ember", "solar", "ocean", "signal", "violet", "crimson", "mono", "ice", "toxic"];
   const theme = themes.includes(user.theme) ? user.theme : "hacker";
@@ -361,7 +277,7 @@ function renderMessage(msg, { isHistory } = {}) {
   const mine = CURRENT_USER && msg.username === CURRENT_USER.username;
   div.className = "chat-msg" + (mine ? " mine" : "");
   const time = new Date(msg.ts).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-  div.innerHTML = `<div class="chat-author">${avatarMarkup({ username: msg.username, avatarUrl: msg.avatarUrl })}<div class="meta">${msg.username} · ${msg.role} · ${time}</div></div>${escapeHtml(msg.text)}`;
+  div.innerHTML = `<div class="chat-author">${avatarMarkup({ username: msg.username, avatarUrl: msg.avatarUrl })}<div class="meta">${msg.username} Â· ${msg.role} Â· ${time}</div></div>${escapeHtml(msg.text)}`;
   chatMessages.appendChild(div);
   chatMessages.scrollTop = chatMessages.scrollHeight;
 
@@ -383,37 +299,22 @@ function connectChatSocket() {
   });
   chatSocket.on("chat:message", (m) => renderMessage(m));
   chatSocket.on("chat:typing", ({ username }) => {
-    typingIndicator.textContent = `${username} is typing…`;
+    typingIndicator.textContent = `${username} is typingâ€¦`;
     typingIndicator.style.display = "block";
     clearTimeout(typingIndicator._t);
     typingIndicator._t = setTimeout(() => { typingIndicator.style.display = "none"; }, 2000);
   });
-=======
-function connectSocket() {
-  socket = io();
-  socket.on("chat:history", (history) => {
-    chatMessages.innerHTML = "";
-    history.forEach(renderMessage);
-  });
-  socket.on("chat:message", renderMessage);
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 }
 
 function sendChat() {
   const text = chatInput.value.trim();
-<<<<<<< HEAD
   if (!text || !chatSocket) return;
   chatSocket.emit("chat:message", text);
-=======
-  if (!text || !socket) return;
-  socket.emit("chat:message", text);
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
   chatInput.value = "";
 }
 chatSend.addEventListener("click", sendChat);
 chatInput.addEventListener("keydown", (e) => { if (e.key === "Enter") sendChat(); });
 
-<<<<<<< HEAD
 let typingTimer = null;
 chatInput.addEventListener("input", () => {
   if (!chatSocket) return;
@@ -422,8 +323,6 @@ chatInput.addEventListener("input", () => {
   typingTimer = setTimeout(() => { typingTimer = null; }, 1200);
 });
 
-=======
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 // ---------- Members ----------
 async function loadMembers() {
   try {
@@ -435,18 +334,11 @@ async function loadMembers() {
     data.users.forEach((u) => {
       const tr = document.createElement("tr");
       const canRemove = CURRENT_USER.role === "owner" && u.role !== "owner";
-<<<<<<< HEAD
       const rank = rankForXp(u.xp || 0)[1];
       tr.innerHTML = `
         <td><span class="member-identity">${avatarMarkup(u, "avatar-small")}<b>${escapeHtml(u.displayName || u.username)}<small>@${escapeHtml(u.username)}</small></b></span></td>
         <td><span class="role-pill ${String(u.role).toLowerCase().replace(/[^a-z]+/g, "-")}">${escapeHtml(u.role)}</span></td>
         <td><span class="member-rank">${rank}</span></td>
-=======
-      const avatarHtml = `<span class="member-avatar fallback">${u.username.charAt(0).toUpperCase()}</span>`;
-      tr.innerHTML = `
-        <td><div class="member-user">${avatarHtml}<span>${u.username}</span></div></td>
-        <td><span class="role-pill ${u.role}">${u.role}</span></td>
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
         <td>${new Date(u.createdAt).toLocaleDateString()}</td>
         <td>${canRemove ? `<button class="btn btn-danger" data-remove="${u.id}" style="padding:6px 12px;font-size:11px;">Remove</button>` : ""}</td>
       `;
@@ -467,15 +359,12 @@ async function loadMembers() {
 }
 
 const addMemberBtn = document.getElementById("addMemberBtn");
-<<<<<<< HEAD
 const rolePickerModal = document.getElementById("rolePickerModal");
 const rolePickerGrid = document.getElementById("rolePickerGrid");
 document.getElementById("rolePickerTrigger")?.addEventListener("click", () => rolePickerModal.classList.add("show"));
 document.getElementById("rolePickerClose")?.addEventListener("click", () => rolePickerModal.classList.remove("show"));
 rolePickerModal?.addEventListener("click", (event) => { if (event.target === rolePickerModal) rolePickerModal.classList.remove("show"); const choice = event.target.closest("[data-role-id]"); if (!choice) return; document.getElementById("newRole").value = choice.dataset.roleId; document.getElementById("selectedRoleName").textContent = choice.dataset.roleName; rolePickerModal.classList.remove("show"); });
 document.addEventListener("keydown", (event) => { if (event.key === "Escape") rolePickerModal?.classList.remove("show"); });
-=======
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
 if (addMemberBtn) {
   addMemberBtn.addEventListener("click", async () => {
     const username = document.getElementById("newUsername").value.trim();
@@ -511,7 +400,6 @@ if (addMemberBtn) {
     }
   });
 }
-<<<<<<< HEAD
 
 // ---------- Settings: change password ----------
 const passwordForm = document.getElementById("passwordForm");
@@ -581,5 +469,3 @@ document.getElementById("avatarInput")?.addEventListener("change", (event) => { 
 async function saveCustomization() { const accent = document.getElementById("accentColor").value; document.documentElement.style.setProperty("--green", accent); document.body.dataset.density = document.getElementById("densitySelect").value; document.body.classList.toggle("reduced-motion", !document.getElementById("motionToggle").checked); const res = await fetch("/api/me/profile", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ theme: document.body.dataset.theme, accent, density: document.body.dataset.density, motion: document.getElementById("motionToggle").checked }) }); const data = await res.json(); if (data.ok) { CURRENT_USER = data.user; toast("Interface customized"); } else toast(data.message || "Customization failed", "error"); }
 document.getElementById("accentColor")?.addEventListener("change", saveCustomization); document.getElementById("densitySelect")?.addEventListener("change", saveCustomization); document.getElementById("motionToggle")?.addEventListener("change", saveCustomization);
 
-=======
->>>>>>> a77ef059e85bdaf13eadf2dd59f745d0221b2dad
