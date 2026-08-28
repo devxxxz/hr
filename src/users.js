@@ -28,7 +28,7 @@ function seedOwner() {
 
   const existing = users.find((u) => u.username === ownerUsername);
   if (existing) {
-    // don't overwrite the hash here â€” if the owner changed their password
+    // don't overwrite the hash here - if the owner changed their password
     // in the dashboard, data/users.json is the source of truth from then on.
     existing.role = "owner";
   } else {

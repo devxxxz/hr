@@ -47,11 +47,11 @@
           Settings
         </button>
         <button class="nav-item" data-section="ranks">
-          <span class="nav-icon nav-symbol">âœ¦</span>
+          <span class="nav-icon nav-symbol">&#10022;</span>
           Rank Lab
         </button>
         <button class="nav-item" id="controlNav" data-section="control" style="display:none">
-          <span class="nav-icon nav-symbol">âŒ˜</span>
+          <span class="nav-icon nav-symbol">&#8984;</span>
           Control Center
         </button>
       </nav>
@@ -59,8 +59,8 @@
         <div class="user-chip">
           <div class="avatar" id="avatarInitial">?</div>
           <div class="user-meta">
-            <div class="name" id="whoami">â€”</div>
-            <div class="role" id="whoamiRole">â€”</div>
+            <div class="name" id="whoami">&#8212;</div>
+            <div class="role" id="whoamiRole">&#8212;</div>
           </div>
         </div>
         <button id="logoutBtn" class="btn btn-danger" style="width:100%">Logout</button>
@@ -73,7 +73,7 @@
           <button class="hamburger" id="hamburger"><span></span></button>
           <h2 id="sectionTitle">Overview</h2>
         </div>
-        <span class="role-badge" id="roleBadge">â€”</span>
+        <span class="role-badge" id="roleBadge">&#8212;</span>
       </header>
 
       <!-- Overview -->
@@ -83,14 +83,14 @@
           <div class="overview-main">
             <div class="profile-hero glass">
               <div class="hero-glow"></div><div class="profile-hero-avatar avatar" id="heroAvatar">?</div>
-              <div class="profile-hero-copy"><span class="eyebrow">RESIDENT PROFILE</span><h2 id="heroName">â€”</h2><p><span class="online-dot"></span> Active now <span class="divider">/</span> <span id="heroRole">â€”</span></p><div class="tag-row"><span class="tag">SECURITY ENTHUSIAST</span><span class="tag tag-blue">FOUNDER</span></div></div>
+              <div class="profile-hero-copy"><span class="eyebrow">RESIDENT PROFILE</span><h2 id="heroName">&#8212;</h2><p><span class="online-dot"></span> Active now <span class="divider">/</span> <span id="heroRole">&#8212;</span></p><div class="tag-row"><span class="tag">SECURITY ENTHUSIAST</span><span class="tag tag-blue">FOUNDER</span></div></div>
               <div class="level-ring"><strong>100</strong><span>LEVEL</span></div>
             </div>
             <div class="grid overview-stats">
-              <div class="panel glass stat-card"><div class="stat-icon cyan">â—ˆ</div><h3>Network status</h3><p class="big">ONLINE</p><span class="stat-foot">All systems operational</span></div>
-              <div class="panel glass stat-card"><div class="stat-icon purple">âŒ</div><h3>Reputation</h3><p class="big">840</p><span class="stat-foot">+12 this week</span></div>
-              <div class="panel glass stat-card"><div class="stat-icon blue">â–£</div><h3>Shared files</h3><p class="big" id="fileCount">0</p><span class="stat-foot">Private workspace</span></div>
-              <div class="panel glass stat-card"><div class="stat-icon green">â†—</div><h3>Access level</h3><p class="big" id="accessLevel">â€”</p><span class="stat-foot">Verified clearance</span></div>
+              <div class="panel glass stat-card"><div class="stat-icon cyan">&#9672;</div><h3>Network status</h3><p class="big">ONLINE</p><span class="stat-foot">All systems operational</span></div>
+              <div class="panel glass stat-card"><div class="stat-icon purple">&#8961;</div><h3>Reputation</h3><p class="big">840</p><span class="stat-foot">+12 this week</span></div>
+              <div class="panel glass stat-card"><div class="stat-icon blue">&#9635;</div><h3>Shared files</h3><p class="big" id="fileCount">0</p><span class="stat-foot">Private workspace</span></div>
+              <div class="panel glass stat-card"><div class="stat-icon green">&#8599;</div><h3>Access level</h3><p class="big" id="accessLevel">&#8212;</p><span class="stat-foot">Verified clearance</span></div>
             </div>
             <div class="activity-panel glass"><div class="panel-heading"><div><span class="eyebrow">LIVE FEED</span><h3>Recent activity</h3></div><span class="live-label"><span class="status-pulse"></span> LIVE</span></div><div class="activity-list"><div><span class="activity-mark cyan"></span><p><strong>Session established</strong><small>Secure connection verified</small></p><time>now</time></div><div><span class="activity-mark purple"></span><p><strong>Residence systems ready</strong><small>All services responding normally</small></p><time>01m</time></div><div><span class="activity-mark blue"></span><p><strong>Identity confirmed</strong><small>Clearance loaded for this session</small></p><time>02m</time></div></div></div>
           </div>
@@ -105,7 +105,7 @@
       <section class="section" id="section-files">
         <div class="dropzone glass" id="dropzone">
           <strong>Click to upload</strong> or drag & drop files here<br />
-          <span style="font-size:12px">Images, videos, PDFs, docs, zip â€” up to 200MB</span>
+          <span style="font-size:12px">Images, videos, PDFs, docs, zip &#8212; up to 200MB</span>
           <input type="file" id="fileInput" style="display:none" multiple />
         </div>
         <div id="uploadStatus" class="status"></div>
@@ -118,7 +118,7 @@
           <div class="chat-messages" id="chatMessages"></div>
           <div class="typing-indicator" id="typingIndicator" style="display:none"></div>
           <div class="chat-input-row">
-            <input type="text" id="chatInput" placeholder="Type a messageâ€¦" maxlength="2000" />
+            <input type="text" id="chatInput" placeholder="Type a message&#8230;" maxlength="2000" />
             <button class="btn btn-primary btn-glow" id="chatSend"><span class="btn-shine"></span><span class="btn-label">Send</span></button>
           </div>
         </div>
@@ -128,7 +128,7 @@
       <section class="section" id="section-call">
         <div class="vc-wrap">
           <aside class="vc-participants glass">
-            <h4>In Call â€” <span id="vcCount">0</span></h4>
+            <h4>In Call &#8212; <span id="vcCount">0</span></h4>
             <div id="vcParticipantList">
               <p class="vc-empty-hint">Nobody's here yet. Join to start a call.</p>
             </div>
@@ -175,7 +175,7 @@
           <div class="member-form">
             <input type="text" id="newUsername" placeholder="username" />
             <input type="password" id="newPassword" placeholder="password (min 6 chars)" />
-            <button type="button" class="role-picker-trigger" id="rolePickerTrigger"><span id="selectedRoleName">Choose a role</span><span>âŒ„</span></button>
+            <button type="button" class="role-picker-trigger" id="rolePickerTrigger"><span id="selectedRoleName">Choose a role</span><span>&#8984;</span></button>
             <select id="newRole" class="role-value-select" aria-hidden="true" tabindex="-1"><option value="">Choose a role</option></select>
             <button class="btn btn-primary btn-glow" id="addMemberBtn"><span class="btn-shine"></span><span class="btn-label">Add</span></button>
           </div>
@@ -195,9 +195,9 @@
         <div class="settings-grid">
         <div class="panel glass profile-panel">
           <h3>Profile</h3>
-          <div class="profile-preview"><div class="avatar avatar-large avatar-orbit" id="profileAvatar">?</div><div><strong id="profileName">â€”</strong><span>Visible in chat and calls</span><small class="profile-status"><i></i> Active identity</small></div></div>
+          <div class="profile-preview"><div class="avatar avatar-large avatar-orbit" id="profileAvatar">?</div><div><strong id="profileName">&#8212;</strong><span>Visible in chat and calls</span><small class="profile-status"><i></i> Active identity</small></div></div>
           <form id="profileForm">
-            <label class="field-label upload-field"><span>Profile photo</span><span class="file-picker"><span class="file-picker-icon">â†‘</span><span><b id="avatarFileName">Choose an image</b><small>PNG, JPG or WEBP Â· 5MB max</small></span><input type="file" id="avatarInput" accept="image/*" /></span></label>
+            <label class="field-label upload-field"><span>Profile photo</span><span class="file-picker"><span class="file-picker-icon">&#8593;</span><span><b id="avatarFileName">Choose an image</b><small>PNG, JPG or WEBP &#183; 5MB max</small></span><input type="file" id="avatarInput" accept="image/*" /></span></label>
             <div class="profile-actions"><button type="submit" class="btn btn-primary btn-glow" id="saveAvatarBtn"><span class="btn-shine"></span><span class="btn-label">Save profile photo</span></button><button type="button" class="btn btn-ghost remove-avatar" id="removeAvatarBtn">Remove</button></div>
             <p id="profileStatus" class="status"></p>
           </form>
@@ -243,7 +243,7 @@
       <section class="section" id="section-ranks">
         <div class="module-heading"><div><span class="eyebrow">IDENTITY NETWORK / 07</span><h1>Rank Lab</h1><p>Roles, clearance and standing across ShadowByte.</p></div><span class="filter-pill">MANUAL ROLE REVIEW</span></div>
         <div class="rank-layout">
-          <div class="rank-card glass" id="rankCard"><span class="glass-sheen"></span><div class="rank-particles"></div><div class="rank-card-top"><span class="eyebrow">CURRENT CLEARANCE</span><span class="role-badge" id="rankRole">â€”</span></div><div class="rank-identity"><div class="avatar rank-avatar" id="rankAvatar">?</div><div><h2 id="rankUsername">â€”</h2><p id="rankDepartment">â€”</p></div></div><div class="rank-name" id="currentRank">Member</div><div class="rank-footer"><span>Reputation <b id="rankReputation">0</b></span><span>Contributions <b id="rankContributions">0</b></span></div></div>
+          <div class="rank-card glass" id="rankCard"><span class="glass-sheen"></span><div class="rank-particles"></div><div class="rank-card-top"><span class="eyebrow">CURRENT CLEARANCE</span><span class="role-badge" id="rankRole">&#8212;</span></div><div class="rank-identity"><div class="avatar rank-avatar" id="rankAvatar">?</div><div><h2 id="rankUsername">&#8212;</h2><p id="rankDepartment">&#8212;</p></div></div><div class="rank-name" id="currentRank">Member</div><div class="rank-footer"><span>Reputation <b id="rankReputation">0</b></span><span>Contributions <b id="rankContributions">0</b></span></div></div>
           <div class="panel glass profile-facts"><div class="panel-heading"><div><span class="eyebrow">IDENTITY RECORD</span><h3>User profile</h3></div><span class="verified-mark">VERIFIED</span></div><div class="fact-grid" id="profileFacts"></div><div class="badge-row" id="profileBadges"></div></div>
         </div>
         <div class="panel glass leaderboard-panel"><div class="panel-heading"><div><span class="eyebrow">GLOBAL SIGNAL</span><h3>Leaderboard</h3></div><div class="segmented" id="leaderFilters"><button class="active" data-filter="Global">Global</button><button data-filter="Weekly">Weekly</button><button data-filter="Monthly">Monthly</button><button data-filter="Security">Security</button><button data-filter="Developers">Developers</button><button data-filter="Researchers">Researchers</button><button data-filter="Community">Community</button></div></div><div class="leaderboard-head"><span>Position / identity</span><span>Role</span><span>Reputation</span><span>Department</span><span>Badges</span></div><div id="leaderboardRows"></div></div>
@@ -254,7 +254,7 @@
       <!-- Control Center -->
       <section class="section" id="section-control">
         <div class="module-heading"><div><span class="eyebrow">AUTHORIZED OPERATIONS / 08</span><h1>Control Center</h1><p>Shape roles, permissions and the human layer of the network.</p></div><button class="btn btn-primary control-action" id="newRoleBtn">+ Create role</button></div>
-        <div class="control-stats"><div class="panel glass"><small>ACTIVE ROLES</small><strong id="roleCount">â€”</strong><span>Hierarchy nodes</span></div><div class="panel glass"><small>MEMBERS</small><strong id="memberCount">â€”</strong><span>Registered identities</span></div><div class="panel glass"><small>PERMISSION GROUPS</small><strong id="permissionCount">â€”</strong><span>Granular controls</span></div><div class="panel glass warning-stat"><small>SECURITY MODE</small><strong>STRICT</strong><span>Elevation protected</span></div></div>
+        <div class="control-stats"><div class="panel glass"><small>ACTIVE ROLES</small><strong id="roleCount">&#8212;</strong><span>Hierarchy nodes</span></div><div class="panel glass"><small>MEMBERS</small><strong id="memberCount">&#8212;</strong><span>Registered identities</span></div><div class="panel glass"><small>PERMISSION GROUPS</small><strong id="permissionCount">&#8212;</strong><span>Granular controls</span></div><div class="panel glass warning-stat"><small>SECURITY MODE</small><strong>STRICT</strong><span>Elevation protected</span></div></div>
         <div class="control-grid"><div class="panel glass role-manager"><div class="panel-heading"><div><span class="eyebrow">ROLE CATALOG</span><h3>Hierarchy & permissions</h3></div><input class="control-search" id="roleSearch" placeholder="Search roles" /></div><div id="roleCatalog"></div></div><div class="panel glass audit-panel"><div class="panel-heading"><div><span class="eyebrow">EVENT STREAM</span><h3>Audit log</h3></div><span class="live-label"><span class="status-pulse"></span> LIVE</span></div><div id="auditLog"><div class="audit-row"><b>NOW</b><span><strong>Control center initialized</strong><small>Every sensitive action is recorded here.</small></span><em>READY</em></div></div></div></div>
       </section>
     </main>
@@ -262,12 +262,12 @@
 
   <!-- Lightbox for file previews -->
   <div class="lightbox" id="lightbox">
-    <button class="lightbox-close" id="lightboxClose">âœ•</button>
+    <button class="lightbox-close" id="lightboxClose">&#10005;</button>
     <div class="lightbox-body" id="lightboxBody"></div>
   </div>
   <div class="role-picker-modal" id="rolePickerModal" aria-hidden="true">
     <div class="role-picker-dialog glass" role="dialog" aria-modal="true" aria-labelledby="rolePickerTitle">
-      <div class="panel-heading"><div><span class="eyebrow">MEMBER CLEARANCE</span><h3 id="rolePickerTitle">Choose a role</h3></div><button type="button" class="modal-close" id="rolePickerClose" aria-label="Close role picker">Ã—</button></div>
+      <div class="panel-heading"><div><span class="eyebrow">MEMBER CLEARANCE</span><h3 id="rolePickerTitle">Choose a role</h3></div><button type="button" class="modal-close" id="rolePickerClose" aria-label="Close role picker">&#215;</button></div>
       <p class="role-picker-hint">Select one role to assign to this new member.</p>
       <div class="role-picker-grid" id="rolePickerGrid"></div>
     </div>

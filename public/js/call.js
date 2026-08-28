@@ -56,7 +56,7 @@
         ? cams.map((d, i) => `<option value="${d.deviceId}">${d.label || "Camera " + (i + 1)}</option>`).join("")
         : `<option value="">No camera found</option>`;
     } catch {
-      /* enumerateDevices unsupported/blocked â€” leave selects empty */
+      /* enumerateDevices unsupported/blocked - leave selects empty */
     }
   }
   populateDevices();
@@ -123,7 +123,7 @@
         setSpeaking(id, false);
       });
     } catch {
-      /* Web Audio unsupported â€” skip speaking indicator */
+      /* Web Audio unsupported - skip speaking indicator */
     }
   }
 
@@ -275,7 +275,7 @@
   }
 
   // ---------------- media: graceful mic acquisition ----------------
-  // Returns a (possibly empty) MediaStream â€” never throws for permission/device
+  // Returns a (possibly empty) MediaStream - never throws for permission/device
   // issues, so joining a call never hard-blocks on mic access.
   async function acquireLocalStream() {
     if (!window.isSecureContext) {
@@ -293,9 +293,9 @@
       hasMic = false;
       micOn = false;
       if (err && err.name === "NotFoundError") {
-        showNotice("No microphone detected â€” you joined without audio. You can still see/hear others and use chat.");
+        showNotice("No microphone detected - you joined without audio. You can still see/hear others and use chat.");
       } else {
-        showNotice("Microphone access was blocked â€” you joined without audio. Allow mic access in your browser's site settings to talk.");
+        showNotice("Microphone access was blocked - you joined without audio. Allow mic access in your browser's site settings to talk.");
       }
       return new MediaStream();
     }
