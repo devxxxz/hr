@@ -1,0 +1,21 @@
+[
+  {
+    "id": "cad6aa53-aef1-40a2-9a5c-8296c27a4885",
+    "username": "primestark@1122",
+    "passwordHash": "$2b$10$oGJkdUZSPP3reHv4vzU5MeQtdMgQ0z8cxTbP3b7UxX.uhCQb0oBwe",
+    "role": "owner",
+    "createdAt": "2017-02-28T05:16:39.759Z",
+    "avatarUrl": "/api/users/cad6aa53-aef1-40a2-9a5c-8296c27a4885/avatar?file=cad6aa53-aef1-40a2-9a5c-8296c27a4885-4b6b7e70-9a0d-4e53-876c-5307a9ec3b18.jfif",
+    "theme": "hacker",
+    "accent": "#00ffa3",
+    "density": "comfortable",
+    "motion": true
+  },
+  {
+    "id": "813c9ae3-fdc2-4852-9f02-5f28f5d7bd4a",
+    "username": "amzostark@1122",
+    "passwordHash": "$2b$10$wxSRpqwS5Yr95kA1BdROd.o3Pw8TazGj.2GyYLFdQFRhTb8Bc393W",
+    "role": "Founder",
+    "createdAt": "2026-08-28T05:27:21.570Z"
+  }
+]

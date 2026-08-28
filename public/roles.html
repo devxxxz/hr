@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Role Directory | ShadowByte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="roles-page">
+<canvas id="bgCanvas"></canvas><div class="glow-orb orb-a"></div><div class="glow-orb orb-b"></div>
+<main class="roles-shell">
+  <header class="roles-header glass"><div class="brand small"><span class="brand-mark">SB</span><span>ShadowByte</span></div><div><span class="eyebrow">ACCESS DIRECTORY / 09</span><h1>All roles</h1><p>Explore the ShadowByte hierarchy and clearance map.</p></div><a class="btn btn-ghost roles-back" href="/dashboard">Back to dashboard</a></header>
+  <section class="roles-toolbar glass"><span class="status-pulse"></span><strong id="roleTotal">Loading role catalog</strong><input id="roleDirectorySearch" placeholder="Search roles or permissions" aria-label="Search roles" /></section>
+  <section class="directory-grid" id="roleDirectory"><div class="directory-empty">Loading role catalog...</div></section>
+</main>
+<script src="/js/roles-directory.js?v=20260828"></script>
+</body>
+</html>

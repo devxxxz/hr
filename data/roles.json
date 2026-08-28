@@ -1,0 +1,346 @@
+[
+  {
+    "id": "founder",
+    "name": "Founder",
+    "department": "Leadership",
+    "icon": "diamond",
+    "permissions": [
+      "*"
+    ],
+    "level": 100,
+    "description": "Founder clearance within the ShadowByte network.",
+    "enabled": true,
+    "position": 0
+  },
+  {
+    "id": "co-founder",
+    "name": "Co-Founder",
+    "department": "Leadership",
+    "icon": "orbit",
+    "permissions": [
+      "dashboard",
+      "users",
+      "roles",
+      "security",
+      "audit",
+      "system"
+    ],
+    "level": 90,
+    "description": "Co-Founder clearance within the ShadowByte network.",
+    "enabled": true,
+    "position": 1
+  },
+  {
+    "id": "executive",
+    "name": "Executive",
+    "department": "Leadership",
+    "icon": "crown",
+    "permissions": [
+      "dashboard",
+      "users",
+      "security",
+      "audit"
+    ],
+    "level": 80,
+    "description": "Executive clearance within the ShadowByte network.",
+    "enabled": true,
+    "position": 2
+  },
+  {
+    "id": "director",
+    "name": "Director",
+    "department": "Leadership",
+    "icon": "flag",
+    "permissions": [
+      "dashboard",
+      "users",
+      "security",
+      "audit"
+    ],
+    "level": 70,
+    "description": "Director clearance within the ShadowByte network.",
+    "enabled": true,
+    "position": 3
+  },
+  {
+    "id": "administrator",
+    "name": "Administrator",
+    "department": "Administration",
+    "icon": "shield",
+    "permissions": [
+      "dashboard",
+      "users",
+      "moderation",
+      "content",
+      "audit"
+    ],
+    "level": 60,
+    "description": "Administrator clearance within the ShadowByte network.",
+    "enabled": true,
+    "position": 4
+  },
+  {
+    "id": "security-lead",
+    "name": "Security Lead",
+    "department": "Administration",
+    "icon": "lock",
+    "permissions": [
+      "dashboard",
+      "security",
+      "threats",
+      "audit"
+    ],
+    "level": 55,
+    "description": "Security Lead clearance within the ShadowByte network.",
+    "enabled": true,
+    "position": 5
+  },
+  {
+    "id": "developer-lead",
+    "name": "Developer Lead",
+    "department": "Administration",
+    "icon": "code",
+    "permissions": [
+      "dashboard",
+      "developer",
+      "api",
+      "audit"
+    ],
+    "level": 50,
+    "description": "Developer Lead clearance within the ShadowByte network.",
+    "enabled": true,
+    "position": 6
+  },
+  {
+    "id": "senior-developer",
+    "name": "Senior Developer",
+    "department": "Engineering",
+    "icon": "terminal",
+    "permissions": [
+      "dashboard",
+      "developer",
+      "api"
+    ],
+    "level": 40,
+    "description": "Senior Developer clearance within the ShadowByte network.",
+    "enabled": true,
+    "position": 7
+  },
+  {
+    "id": "developer",
+    "name": "Developer",
+    "department": "Engineering",
+    "icon": "brackets",
+    "permissions": [
+      "dashboard",
+      "developer"
+    ],
+    "level": 30,
+    "description": "Developer clearance within the ShadowByte network.",
+    "enabled": true,
+    "position": 8
+  },
+  {
+    "id": "threat-researcher",
+    "name": "Threat Researcher",
+    "department": "Engineering",
+    "icon": "radar",
+    "permissions": [
+      "dashboard",
+      "threats",
+      "security"
+    ],
+    "level": 35,
+    "description": "Threat Researcher clearance within the ShadowByte network.",
+    "enabled": true,
+    "position": 9
+  },
+  {
+    "id": "core-team",
+    "name": "Core Team",
+    "department": "Prestige",
+    "icon": "spark",
+    "permissions": [
+      "dashboard"
+    ],
+    "level": 25,
+    "description": "Core Team clearance within the ShadowByte network.",
+    "enabled": true,
+    "position": 10
+  },
+  {
+    "id": "security-council",
+    "name": "Security Council",
+    "department": "Prestige",
+    "icon": "shield",
+    "permissions": [
+      "dashboard",
+      "security"
+    ],
+    "level": 24,
+    "description": "Security Council clearance within the ShadowByte network.",
+    "enabled": true,
+    "position": 11
+  },
+  {
+    "id": "research-council",
+    "name": "Research Council",
+    "department": "Prestige",
+    "icon": "radar",
+    "permissions": [
+      "dashboard",
+      "threats"
+    ],
+    "level": 23,
+    "description": "Research Council clearance within the ShadowByte network.",
+    "enabled": true,
+    "position": 12
+  },
+  {
+    "id": "engineering-team",
+    "name": "Engineering Team",
+    "department": "Prestige",
+    "icon": "code",
+    "permissions": [
+      "dashboard",
+      "developer"
+    ],
+    "level": 22,
+    "description": "Engineering Team clearance within the ShadowByte network.",
+    "enabled": true,
+    "position": 13
+  },
+  {
+    "id": "threat-intelligence",
+    "name": "Threat Intelligence",
+    "department": "Prestige",
+    "icon": "eye",
+    "permissions": [
+      "dashboard",
+      "threats"
+    ],
+    "level": 21,
+    "description": "Threat Intelligence clearance within the ShadowByte network.",
+    "enabled": true,
+    "position": 14
+  },
+  {
+    "id": "beta-tester",
+    "name": "Beta Tester",
+    "department": "Prestige",
+    "icon": "flask",
+    "permissions": [
+      "dashboard"
+    ],
+    "level": 15,
+    "description": "Beta Tester clearance within the ShadowByte network.",
+    "enabled": true,
+    "position": 15
+  },
+  {
+    "id": "verified-researcher",
+    "name": "Verified Researcher",
+    "department": "Prestige",
+    "icon": "badge",
+    "permissions": [
+      "dashboard",
+      "threats"
+    ],
+    "level": 20,
+    "description": "Verified Researcher clearance within the ShadowByte network.",
+    "enabled": true,
+    "position": 16
+  },
+  {
+    "id": "contributor",
+    "name": "Contributor",
+    "department": "Prestige",
+    "icon": "plus",
+    "permissions": [
+      "dashboard",
+      "content"
+    ],
+    "level": 12,
+    "description": "Contributor clearance within the ShadowByte network.",
+    "enabled": true,
+    "position": 17
+  },
+  {
+    "id": "community-partner",
+    "name": "Community Partner",
+    "department": "Prestige",
+    "icon": "users",
+    "permissions": [
+      "dashboard"
+    ],
+    "level": 11,
+    "description": "Community Partner clearance within the ShadowByte network.",
+    "enabled": true,
+    "position": 18
+  },
+  {
+    "id": "project-ambassador",
+    "name": "Project Ambassador",
+    "department": "Prestige",
+    "icon": "megaphone",
+    "permissions": [
+      "dashboard"
+    ],
+    "level": 10,
+    "description": "Project Ambassador clearance within the ShadowByte network.",
+    "enabled": true,
+    "position": 19
+  },
+  {
+    "id": "early-supporter",
+    "name": "Early Supporter",
+    "department": "Prestige",
+    "icon": "bolt",
+    "permissions": [
+      "dashboard"
+    ],
+    "level": 8,
+    "description": "Early Supporter clearance within the ShadowByte network.",
+    "enabled": true,
+    "position": 20
+  },
+  {
+    "id": "og-member",
+    "name": "OG Member",
+    "department": "Prestige",
+    "icon": "star",
+    "permissions": [
+      "dashboard"
+    ],
+    "level": 7,
+    "description": "OG Member clearance within the ShadowByte network.",
+    "enabled": true,
+    "position": 21
+  },
+  {
+    "id": "veteran",
+    "name": "Veteran",
+    "department": "Prestige",
+    "icon": "award",
+    "permissions": [
+      "dashboard"
+    ],
+    "level": 6,
+    "description": "Veteran clearance within the ShadowByte network.",
+    "enabled": true,
+    "position": 22
+  },
+  {
+    "id": "elite-member",
+    "name": "Elite Member",
+    "department": "Prestige",
+    "icon": "crown",
+    "permissions": [
+      "dashboard"
+    ],
+    "level": 5,
+    "description": "Elite Member clearance within the ShadowByte network.",
+    "enabled": true,
+    "position": 23
+  }
+]

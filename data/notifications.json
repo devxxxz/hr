@@ -1,0 +1,29 @@
+[
+  {
+    "id": "5a90b6fe-4f26-4d95-bfc1-25127976792e",
+    "userId": "cad6aa53-aef1-40a2-9a5c-8296c27a4885",
+    "type": "role-request",
+    "title": "Role request rejected",
+    "message": "Your request for Developer was rejected.",
+    "createdAt": "2026-08-28T15:17:18.905Z",
+    "read": false
+  },
+  {
+    "id": "960c8c4f-5614-4e8d-9124-d9e478c02671",
+    "userId": "cad6aa53-aef1-40a2-9a5c-8296c27a4885",
+    "type": "role-request",
+    "title": "Role request rejected",
+    "message": "Your request for Elite Member was rejected.",
+    "createdAt": "2026-08-28T15:16:12.539Z",
+    "read": false
+  },
+  {
+    "id": "4e91ce30-1e22-4ca9-a783-2a030e92cb03",
+    "userId": "813c9ae3-fdc2-4852-9f02-5f28f5d7bd4a",
+    "type": "role-request",
+    "title": "Role request approved",
+    "message": "You are now Founder.",
+    "createdAt": "2026-08-28T15:16:10.965Z",
+    "read": false
+  }
+]

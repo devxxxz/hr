@@ -1,0 +1,64 @@
+[
+  {
+    "id": "b4dec835-d271-4c8c-a064-0480e74f6c73",
+    "actor": "primestark@1122",
+    "target": "primestark@1122",
+    "action": "rejected role request",
+    "reason": "hi",
+    "ip": "session:unknown",
+    "timestamp": "2026-08-28T15:17:18.903Z",
+    "result": "success"
+  },
+  {
+    "id": "400f6822-954e-403a-bf36-7039dfe09dd8",
+    "actor": "primestark@1122",
+    "action": "submitted role request",
+    "target": "Developer",
+    "reason": "hi",
+    "ip": "::1",
+    "timestamp": "2026-08-28T15:17:00.242Z",
+    "result": "success"
+  },
+  {
+    "id": "12147fa6-9187-41b8-b12d-2c452d8a8898",
+    "actor": "primestark@1122",
+    "target": "primestark@1122",
+    "action": "rejected role request",
+    "reason": "hi i want this role",
+    "ip": "session:unknown",
+    "timestamp": "2026-08-28T15:16:12.537Z",
+    "result": "success"
+  },
+  {
+    "id": "a4832740-ca91-4d7f-952c-7028246bdae5",
+    "actor": "primestark@1122",
+    "target": "amzostark@1122",
+    "action": "approved role request",
+    "previousRole": "admin",
+    "newRole": "Founder",
+    "reason": "hi",
+    "ip": "session:unknown",
+    "timestamp": "2026-08-28T15:16:10.963Z",
+    "result": "success"
+  },
+  {
+    "id": "10560e06-8fb5-40c9-9704-df4bb139e4cd",
+    "actor": "amzostark@1122",
+    "action": "submitted role request",
+    "target": "Founder",
+    "reason": "hi",
+    "ip": "::1",
+    "timestamp": "2026-08-28T15:11:34.200Z",
+    "result": "success"
+  },
+  {
+    "id": "1d0b080b-bfed-4bb7-a591-65bbc2c78a77",
+    "actor": "primestark@1122",
+    "action": "submitted role request",
+    "target": "Elite Member",
+    "reason": "hi i want this role",
+    "ip": "::1",
+    "timestamp": "2026-08-28T15:01:08.846Z",
+    "result": "success"
+  }
+]

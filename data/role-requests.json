@@ -1,0 +1,38 @@
+[
+  {
+    "id": "50eca638-729f-467f-99a0-e22fc7c1bf7a",
+    "userId": "cad6aa53-aef1-40a2-9a5c-8296c27a4885",
+    "username": "primestark@1122",
+    "roleId": "developer",
+    "role": "Developer",
+    "reason": "hi",
+    "status": "rejected",
+    "createdAt": "2026-08-28T15:17:00.240Z",
+    "reviewedBy": "primestark@1122",
+    "reviewedAt": "2026-08-28T15:17:18.901Z"
+  },
+  {
+    "id": "7fe686df-1208-4561-a330-e134dd8c9f07",
+    "userId": "813c9ae3-fdc2-4852-9f02-5f28f5d7bd4a",
+    "username": "amzostark@1122",
+    "roleId": "founder",
+    "role": "Founder",
+    "reason": "hi",
+    "status": "approved",
+    "createdAt": "2026-08-28T15:11:34.199Z",
+    "reviewedBy": "primestark@1122",
+    "reviewedAt": "2026-08-28T15:16:10.960Z"
+  },
+  {
+    "id": "19a673ad-b6a6-4a75-a3e6-dbb582f497bb",
+    "userId": "cad6aa53-aef1-40a2-9a5c-8296c27a4885",
+    "username": "primestark@1122",
+    "roleId": "elite-member",
+    "role": "Elite Member",
+    "reason": "hi i want this role",
+    "status": "rejected",
+    "createdAt": "2026-08-28T15:01:08.844Z",
+    "reviewedBy": "primestark@1122",
+    "reviewedAt": "2026-08-28T15:16:12.535Z"
+  }
+]
