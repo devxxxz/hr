@@ -18,4 +18,12 @@
     "role": "Founder",
     "createdAt": "2026-08-28T05:27:21.570Z"
   }
+
+  {
+  "id": "c4e7a2f1-9b63-4d85-a214-6f8c3e7b51d9",
+  "username": "member",
+  "passwordHash": "$2b$10$wxSRpqwS5Yr95kA1BdROd.o3Pw8TazGj.2GyYLFdQFRhTb8Bc393W",
+  "role": "Member",
+  "createdAt": "2026-08-30T10:26:00.000Z"
+}
 ]
